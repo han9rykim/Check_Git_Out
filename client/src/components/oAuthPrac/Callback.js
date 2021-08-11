@@ -13,7 +13,7 @@ function Callback({ history, location }) {
 			try {
 								// 이 부분은 express에 요청하여 JWT 토큰을 발급합니다.
 				const response = await axios.post(
-					`http://168.188.129.200:80/auth`,
+					`http://168.188.129.200:3001/auth`,
 					{
 						code,
 					}

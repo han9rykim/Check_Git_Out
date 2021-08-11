@@ -33,6 +33,7 @@ function Mypage() {
     console.log(value);
     return (
         <div>
+			<h1>로그인 되었습니다.</h1>
             <h1>{value.PromiseResult}</h1>
         </div>
     );
