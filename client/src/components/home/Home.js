@@ -4,9 +4,7 @@ import React from "react";
 function Home() {
 	return (
 		<div>
-			<h1>HOME</h1>
-			
-			
+			<h1>Check Git Out!</h1>
 			<br />
 			<h3>이 주 최고의 학교 : 충남대학교</h3>
 			<h3>이 주 최고의 클랜 : DNlab</h3>
