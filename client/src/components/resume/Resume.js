@@ -1,31 +1,72 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
-import Resume_prof from "./Resume_P/Resume_prof";
-import Resume_stu from "./Resume_S/Resume_stu";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Button from "react-bootstrap/Button";
+import styled from "styled-components";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-const profileData = {
-	dblepart99: {
-		name: "김현수",
-		description: "BS in CNU",
-		rank: 43,
-		score: 90,
-		imagelink:
-			"https://user-images.githubusercontent.com/39149858/124225857-18c83d80-db43-11eb-83dc-0ca580a79841.jpeg",
-
-	}
-}
-
-
+const Content = styled.div`
+	width: 512px;
+	height: 768px;
+	position: relative;
+	background: white;
+	border-radius: 16px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-bottom: 32px;
+	display: flex;
+	flex-direction: column;
+`;
 
 function Resume() {
 	return (
 		<div>
 			<h1>이력서 페이지</h1>
-            <Resume_prof></Resume_prof>
-            <Resume_stu></Resume_stu>
 
+			<Container fluid="md">
+				<Row>
+					<Col>
+						<Content>
+							<h1>ReadmeContent</h1>
+						</Content>
+					</Col>
+					<Col>
+						<Content>
+							<FloatingLabel
+								controlId="floatingTextarea"
+								label="Title"
+								className="mb-3"
+							>
+								<Form.Control
+									as="textarea"
+									placeholder="Leave a comment here"
+								/>
+							</FloatingLabel>
+							<FloatingLabel controlId="floatingTextarea2" label="description">
+								<Form.Control
+									as="textarea"
+									placeholder="Leave a comment here"
+									style={{ height: "100px" }}
+								/>
+							</FloatingLabel>
+							<Container fluid="md">
+								<Row>
+									<Col>
+										<Button as="input" type="button" value="Save" />{" "}
+									</Col>
+									<Col>
+										<Button as="input" type="submit" value="Pull Request" />{" "}
+									</Col>
+								</Row>
+							</Container>
+						</Content>
+					</Col>
+				</Row>
+			</Container>
 		</div>
-        
 	);
 }
 
