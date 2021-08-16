@@ -1,10 +1,10 @@
 import axios from "axios";
-import React from 'react';
+import React from "react";
 import { useAsync } from "react-async";
 import { Octokit } from "@octokit/rest";
 
 async function m1() {
-    const response = JSON.parse(localStorage.getItem("response"));
+	const response = JSON.parse(localStorage.getItem("response"));
 	const token = response.data.access_token;
 	const octokit = new Octokit({
 		auth: String(token),
@@ -28,15 +28,14 @@ async function m1() {
 }
 
 function Mypage() {
-    
-    const value = m1();
-    console.log(value);
-    return (
-        <div>
+	const value = m1();
+	console.log(value);
+	return (
+		<div>
 			<h1>로그인 되었습니다.</h1>
-            <h1>{value.PromiseResult}</h1>
-        </div>
-    );
+			<h1>{value.PromiseResult}</h1>
+		</div>
+	);
 }
 
 export default Mypage;
