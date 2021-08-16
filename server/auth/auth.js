@@ -1,5 +1,5 @@
 var express = require("express");
-// require("dotenv").config();
+
 var router = express.Router();
 const axios = require("axios");
 const Octokit = require("octokit");
@@ -15,6 +15,7 @@ router.get("/", function (req, res, next) {
 router.post("/", async (req, res) => {
 	const { code } = req.body;
 	console.log(`resource owner가 보낸 코드: ${code}`);
+	console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
 
 	try {
 		const response = await axios.post(
@@ -39,6 +40,7 @@ router.post("/", async (req, res) => {
 				Authorization: `token ${token}`,
 			},
 		});
+
 		const owner = data.login;
 		console.log(owner);
 
@@ -55,9 +57,6 @@ router.post("/", async (req, res) => {
 			console.log("Connected");
 		});
 
-		// var sql = 'insert into user(?,?,?)';
-		// var param = ['username', 'type', 'token'];
-
 		var sql = `INSERT INTO user(username, type, token)	VALUES (?,?,?)`;
 		var param = [owner, "null", token];
 		con.query(sql, param, function (err, rows, fields) {
@@ -68,8 +67,8 @@ router.post("/", async (req, res) => {
 				console.log("fields", fields);
 			}
 		});
-
 		con.end();
+
 		console.log(`resource server가 보내준 토큰: ${token}`);
 		res.send(response.data);
 	} catch (err) {
