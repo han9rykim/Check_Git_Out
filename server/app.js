@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const authRouter = require("./auth/auth");
 const mysqlRouter = require("./db/mysql");
+const prRouter = require("./pullrequest/prRouter");
 
 app.use(cors());
 
@@ -25,6 +26,7 @@ authorization part
 
 app.use("/mysql", mysqlRouter);
 app.use("/auth", authRouter);
+app.use("/pullrequest", prRouter);
 
 app.listen(port, () => {
 	console.log(`Listening at http://localhost:${port}`);
