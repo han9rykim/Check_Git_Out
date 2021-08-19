@@ -63,21 +63,7 @@ function Resume() {
     // 	console.log(sendReq);
     // }
   }
-
-  // useEffect(() => {
-  // 	async function sendReqContent() {
-  // 		try {
-  // 			await axios.post(`http://168.188.129.200:3001/pullrequest`, {
-  // 				sendReq,
-  // 			});
-  // 		} catch (error) {
-  // 			// history.push("/error"); // api요청이 실패했을때 애러 핸들링 페이지
-  // 			console.log("error");
-  // 		}
-  // 	}
-
-  // 	sendReqContent();
-  // });
+  const handleLogOut = () => {};
 
   return (
     <div>
@@ -125,7 +111,7 @@ function Resume() {
                       as="input"
                       type="submit"
                       value="Save to DB"
-                      onClick={saveToDB}
+                      onClick={() => saveToDB()}
                     />
                   </Col>
                   <Col>

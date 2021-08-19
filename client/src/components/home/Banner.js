@@ -9,26 +9,34 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-function Banner() {
+function Banner({ flag }) {
   const [isLogin, setIsLogin] = useState(false);
   const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
   const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo,admin:repo_hook,admin:org`;
 
+  // const [token, setToken] = useState("");
+  // const [token, setToken] = localStorage.getItem("access_token");
   const token = localStorage.getItem("access_token");
+
   useEffect(() => {
     if (token) {
       setIsLogin(true);
+      console.log(`11111+${isLogin}`);
     }
+    console.log(isLogin);
   }, [token]);
 
   const handleLogOut = () => {
     setIsLogin(false);
-    // setProfileURL(null);
     localStorage.removeItem("access_token");
     localStorage.removeItem("data");
     localStorage.removeItem("username");
     localStorage.removeItem("ProfileURL");
   };
+  // const handleLogin = () => {
+  //   setIsLogin(true);
+  //   // setProfileURL(null);
+  // };
 
   return (
     <div>
@@ -47,22 +55,20 @@ function Banner() {
               <Nav.Link href="/resume">Resume</Nav.Link>
               <Nav.Link href="/rank">Rank</Nav.Link>
               <Nav.Link href="/mypage">My Page</Nav.Link>
-              {/* <NavDropdown.Item href="/profiles">Profile</NavDropdown.Item> */}
-              <NavDropdown title="Setting" id="navbarScrollingDropdown">
-                {/* <NavDropdown.Item href={url}>Login</NavDropdown.Item> */}
+              <accountdiv>
+                {isLogin ? (
+                  <logouttag onClick={() => handleLogOut()}>
+                    <Nav.Link href="/">Logout</Nav.Link>
+                  </logouttag>
+                ) : (
+                  <logintag>
+                    <Nav.Link href={url}>Login</Nav.Link>
+                  </logintag>
+                )}
+              </accountdiv>
 
-                <accountmodaldiv>
-                  {isLogin ? (
-                    <accountlogout onClick={() => handleLogOut()}>
-                      <button>로그아웃</button>
-                    </accountlogout>
-                  ) : (
-                    <accountmodalitem>
-                      {/* <LoginBtn /> */}
-                      <NavDropdown.Item href={url}>Login</NavDropdown.Item>
-                    </accountmodalitem>
-                  )}
-                </accountmodaldiv>
+              <NavDropdown title="Setting" id="navbarScrollingDropdown">
+                <NavDropdown.Item href="/mypage">My Page</NavDropdown.Item>
               </NavDropdown>
             </Nav>
 
