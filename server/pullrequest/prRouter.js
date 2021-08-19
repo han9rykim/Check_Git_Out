@@ -13,14 +13,26 @@ var mysql = require("mysql");
 // });
 
 router.post("/", async (req, res) => {
-	const { sendReq } = req.body;
-	console.log(sendReq);
+  const { sendReq } = req.body;
+  console.log(sendReq);
 
-	try {
-	} catch (err) {
-		console.log("error occured");
-		console.error(err);
-	}
+  const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    port: 3306,
+    password: "",
+    database: "gResume",
+  });
+  con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected");
+  });
+
+
+
+  
+
+  con.end();
 });
 
 module.exports = router;
