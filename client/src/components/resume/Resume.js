@@ -54,7 +54,7 @@ function Resume() {
     //초기화 객체값을 넣은 변수로 변경하도록 셋인풋 실행
     setInputs(resetInputs);
   };
-  function saveToDB(e) {
+  function saveToDB() {
     // e.preventDefault();
 
     setSendReq(`${nickname} - ${name}`);
@@ -63,7 +63,11 @@ function Resume() {
     // 	console.log(sendReq);
     // }
   }
-  const handleLogOut = () => {};
+  function sendPR() {
+    axios.post(`http://168.188.129.200:3001/pullrequest`, {
+      sendReq,
+    });
+  }
 
   return (
     <div>
@@ -128,7 +132,7 @@ function Resume() {
                       value="Create Pull Request"
                       onClick={() =>
                         axios.post(`http://168.188.129.200:3001/pullrequest`, {
-                          sendReq,
+                          sendReq: sendReq,
                         })
                       }
                     />
