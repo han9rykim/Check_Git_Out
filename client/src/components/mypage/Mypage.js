@@ -4,8 +4,8 @@ import { useAsync } from "react-async";
 import { Octokit } from "@octokit/rest";
 
 async function m1() {
-  // const response = JSON.parse(sessionStorage.getItem("response"));
-  const token = sessionStorage.getItem("access_token");
+  // const response = JSON.parse(localStorage.getItem("response"));
+  const token = localStorage.getItem("access_token");
   const octokit = new Octokit({
     auth: String(token),
   });
@@ -29,7 +29,7 @@ async function m1() {
 
 function Mypage() {
   var value = "";
-  if (sessionStorage.getItem("response")) {
+  if (localStorage.getItem("response")) {
     value = m1();
     console.log(value);
     console.log("뭐라도 정보는 있고만");
