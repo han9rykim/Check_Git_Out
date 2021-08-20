@@ -1,5 +1,4 @@
 var express = require("express");
-
 var router = express.Router();
 const axios = require("axios");
 const Octokit = require("octokit");
@@ -14,8 +13,20 @@ var mysql = require("mysql");
 
 router.post("/", async (req, res) => {
   const { code } = req.body;
-  console.log(`resource owner가 보낸 코드: ${code}`);
-  console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
+  const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    port: 3306,
+    password: "",
+    database: "gResume",
+  });
+
+  con.connect(function (err) {
+    if (err) throw err;
+    console.log("auth Connected");
+  });
+  // console.log(`resource owner가 보낸 코드: ${code}`);
+  // console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
 
   try {
     const response = await axios.post(
@@ -31,7 +42,6 @@ router.post("/", async (req, res) => {
         },
       }
     );
-    // console.log(JSON.stringify(response.data));
 
     const token = response.data.access_token;
 
@@ -41,40 +51,30 @@ router.post("/", async (req, res) => {
       },
     });
 
+    res.send(response.data);
     const owner = data.login;
-    console.log(owner);
-
-    const con = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      port: 3306,
-      password: "",
-      database: "gResume",
-    });
-
-    con.connect(function (err) {
-      if (err) throw err;
-      console.log("Connected");
-    });
+    // console.log(owner);
 
     var sql = `INSERT INTO user(username, type, token)	VALUES (?,?,?)`;
     var param = [owner, "null", token];
+
     con.query(sql, param, function (err, rows, fields) {
       if (err) {
         console.log(err);
       } else {
-        console.log("rows", rows);
-        console.log("fields", fields);
+        // console.log("rows", rows);
+        // console.log("fields", fields);
       }
     });
-    con.end();
 
     console.log(`resource server가 보내준 토큰: ${token}`);
-    res.send(response.data);
   } catch (err) {
     console.log("error occured");
     console.error(err);
   }
+  con.end();
+  console.log("auth connect end");
+  res.end();
 });
 
 module.exports = router;
