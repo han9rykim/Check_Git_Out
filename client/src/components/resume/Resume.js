@@ -19,18 +19,20 @@ const Content = styled.div`
 `;
 
 function Resume() {
-  const [count, setCount] = useState(0);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [sendReq, setSendReq] = useState("");
-
   //갹채를 업데이트하기위해 useState안에 객체를 사용
   const [inputs, setInputs] = useState({
     name: "",
-    nickname: "",
+    title: "",
   });
   //값을 가져오기 위해 inputs에 name으로 가져왔다
-  const { name, nickname } = inputs;
+  const { name, title } = inputs;
+
+  useEffect(() => {
+    setSendReq(`${title} - ${name}`);
+    // console.log("입력했다.");
+    // console.log(sendReq);
+  }, [inputs]);
 
   const onChange = (e) => {
     //input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -49,22 +51,21 @@ function Resume() {
   const onReset = () => {
     const resetInputs = {
       name: "",
-      nickname: "",
+      title: "",
     };
     //초기화 객체값을 넣은 변수로 변경하도록 셋인풋 실행
     setInputs(resetInputs);
   };
-  function saveToDB() {
-    // e.preventDefault();
 
-    setSendReq(`${nickname} - ${name}`);
+  function saveToDB() {
     console.log(sendReq);
-    // if (sendReq != null) {
-    // 	console.log(sendReq);
-    // }
+    sessionStorage.setItem("content", sendReq);
+    axios.post(`http://localhost:3001/pullrequest`, {
+      sendReq,
+    });
   }
   function sendPR() {
-    axios.post(`http://168.188.129.200:3001/pullrequest`, {
+    axios.post(`http://localhost:3001/pullrequest`, {
       sendReq,
     });
   }
@@ -90,9 +91,9 @@ function Resume() {
                 <Form.Control
                   as="textarea"
                   placeholder="Leave a comment here"
-                  name="nickname"
+                  name="title"
                   onChange={onChange}
-                  value={nickname}
+                  value={title}
                 />
               </FloatingLabel>
 
@@ -130,17 +131,12 @@ function Resume() {
                       as="input"
                       type="submit"
                       value="Create Pull Request"
-                      onClick={() =>
-                        axios.post(`http://168.188.129.200:3001/pullrequest`, {
-                          sendReq: sendReq,
-                        })
-                      }
                     />
                   </Col>
                 </Row>
                 <button onClick={onReset}>초기화</button>
                 <div>
-                  최종 내용: [{nickname}-{name}]
+                  최종 내용: [{title} - {name}]
                 </div>
               </Container>
             </Content>

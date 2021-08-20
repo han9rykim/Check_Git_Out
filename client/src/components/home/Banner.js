@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   Container,
+  Row,
+  Col,
   Navbar,
   Nav,
   NavDropdown,
@@ -11,6 +13,7 @@ import {
 
 function Banner({ flag }) {
   const [isLogin, setIsLogin] = useState(false);
+  const [imgURL, setImgURL] = useState("");
   const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
   const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo,admin:repo_hook,admin:org`;
 
@@ -22,6 +25,8 @@ function Banner({ flag }) {
     if (token) {
       setIsLogin(true);
       console.log(`11111+${isLogin}`);
+      setImgURL(localStorage.getItem("ProfileURL"));
+      console.log(imgURL);
     }
     console.log(isLogin);
   }, [token]);
@@ -58,7 +63,10 @@ function Banner({ flag }) {
               <accountdiv>
                 {isLogin ? (
                   <logouttag onClick={() => handleLogOut()}>
-                    <Nav.Link href="/">Logout</Nav.Link>
+                    <Nav.Link href="/">
+                      <img src={imgURL} width="30px" height="30px" />
+                      Logout
+                    </Nav.Link>
                   </logouttag>
                 ) : (
                   <logintag>
@@ -66,9 +74,18 @@ function Banner({ flag }) {
                   </logintag>
                 )}
               </accountdiv>
-
               <NavDropdown title="Setting" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="/mypage">My Page</NavDropdown.Item>
+                <accountdiv>
+                  {isLogin ? (
+                    <logouttag>
+                      <NavDropdown.Item href="/mypage">
+                        My Page
+                      </NavDropdown.Item>
+                    </logouttag>
+                  ) : (
+                    <logintag></logintag>
+                  )}
+                </accountdiv>
               </NavDropdown>
             </Nav>
 
