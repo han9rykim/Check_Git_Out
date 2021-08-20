@@ -24,7 +24,6 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      {/* <Banner flag={flag} /> */}
       <Banner />
       <RouteHome />
     </div>

@@ -60,12 +60,12 @@ function Resume() {
   function saveToDB() {
     console.log(sendReq);
     sessionStorage.setItem("content", sendReq);
-    axios.post(`http://localhost:3001/pullrequest`, {
+    axios.post(`http://168.188.129.200:8080/pullrequest`, {
       sendReq,
     });
   }
   function sendPR() {
-    axios.post(`http://localhost:3001/pullrequest`, {
+    axios.post(`http://168.188.129.200:8080/pullrequest`, {
       sendReq,
     });
   }

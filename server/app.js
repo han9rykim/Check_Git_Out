@@ -3,7 +3,7 @@ const axios = require("axios");
 const app = require("express")();
 const bodyParser = require("body-parser");
 
-const port = 3001;
+const port = 8080;
 const cors = require("cors");
 const mysql = require("mysql");
 
@@ -28,6 +28,7 @@ authorization part
 // app.use("/mysql", mysqlRouter);
 app.use("/auth", authRouter);
 app.use("/pullrequest", prRouter);
+// app.use("/commit", commitRouter);
 
 // const Octokit = require("octokit");
 // app.post("/auth", async (req, res) => {

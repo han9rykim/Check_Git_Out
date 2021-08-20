@@ -7,6 +7,7 @@ import { Route } from "react-router-dom";
 import Home from "../home/Home";
 
 function Callback({ history, location }) {
+  console.log("도착");
   useEffect(() => {
     async function getToken() {
       const { code } = qs.parse(location.search, {
@@ -17,7 +18,7 @@ function Callback({ history, location }) {
         // const response = await axios.post(process.env.REACT_APP_AUTH_URL, {
         //   code,
         // });
-        const response = await axios.post("http://localhost:3001/auth", {
+        const response = await axios.post("http://168.188.129.200:8080/auth", {
           code,
         });
 

@@ -20,7 +20,7 @@ async function m1() {
     "GET /repos/{owner}/{repo}/contents/{path}",
     {
       owner: owner,
-      repo: `${owner}Resume`,
+      repo: `${owner}`,
       path: "README.md",
     }
   );
@@ -29,7 +29,8 @@ async function m1() {
 
 function Mypage() {
   const url = localStorage.getItem("ProfileURL");
-
+  var value = m1();
+  console.log({ value });
   return (
     <div>
       <img src={url} />
