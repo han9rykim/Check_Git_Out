@@ -11,7 +11,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-function Banner({ flag }) {
+function Banner() {
   const [isLogin, setIsLogin] = useState(false);
   const [imgURL, setImgURL] = useState("");
   const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
@@ -89,7 +89,7 @@ function Banner({ flag }) {
               </NavDropdown>
             </Nav>
 
-            <Form className="d-flex">
+            {/* <Form className="d-flex">
               <FormControl
                 type="search"
                 placeholder="Search"
@@ -97,7 +97,7 @@ function Banner({ flag }) {
                 aria-label="Search"
               />
               <Button variant="outline-success">Search</Button>
-            </Form>
+            </Form> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>

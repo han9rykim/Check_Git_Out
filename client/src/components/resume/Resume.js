@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Form,
+  FormControl,
+  FloatingLabel,
+} from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 const Content = styled.div`
@@ -18,7 +24,14 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-function Resume() {
+const data = {
+  dblepart99: {
+    name: "김현수",
+    desc: "최고",
+  },
+};
+
+function Resume({ match }) {
   const [sendReq, setSendReq] = useState("");
   //갹채를 업데이트하기위해 useState안에 객체를 사용
   const [inputs, setInputs] = useState({
@@ -34,6 +47,11 @@ function Resume() {
     // console.log(sendReq);
   }, [inputs]);
 
+  const { username } = match.params;
+  const profile = data[username];
+  if (!profile) {
+    return <div>존재하지 않는 사용자입니다.</div>;
+  }
   const onChange = (e) => {
     //input에 name을 가진 요소의 value에 이벤트를 걸었다
     const { name, value } = e.target;
@@ -73,6 +91,15 @@ function Resume() {
   return (
     <div>
       <h1>이력서 페이지</h1>
+      <Form className="d-flex">
+        <FormControl
+          type="search"
+          placeholder="Search"
+          className="mr-2"
+          aria-label="Search"
+        />
+        <Button variant="outline-success">Search</Button>
+      </Form>
 
       <Container fluid="md">
         <Row>
