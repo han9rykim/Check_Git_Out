@@ -55,8 +55,10 @@ router.post("/", async (req, res) => {
     const owner = data.login;
     // console.log(owner);
 
-    var sql = `INSERT INTO user(username, type, token)	VALUES (?,?,?)`;
-    var param = [owner, "null", token];
+    // var sql = `INSERT INTO user(username, type, token)	VALUES (?,?,?)`;
+    var sql =
+      "INSERT INTO user(username, token) VALUES(?,?) ON DUPLICATE KEY UPDATE token = (?)";
+    var param = [owner, token, token];
 
     con.query(sql, param, function (err, rows, fields) {
       if (err) {
