@@ -13,15 +13,47 @@ import axios from "axios";
 import ResumeProfile from "./ResumeProfile";
 import { Octokit } from "@octokit/rest";
 const Content = styled.div`
-  width: 100%;
-  height: 170%;
-  position: relative;
+  width: 920px;
+  height: 1400px;
+  position: absolute;
   background: white;
   border-radius: 16px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+  position: fixed;
+
+  right: 500px;
+  top: 130px;
+  bottom: 20px;
+
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 96px;
   margin-bottom: 32px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ReadmeStyle = styled.div`
+  width: 920px;
+  height: 1400px;
+  position: absolute;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+  position: fixed;
+  left: 500px;
+  top: 130px;
+  bottom: 20px;
+  margin: 0 auto;
+  margin-top: 96px;
+  margin-bottom: 100px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -87,36 +119,12 @@ function Resume({ match }) {
       sendReq,
     });
   }
+
   function sendPR() {
     axios.post(`http://168.188.129.200:8080/pullrequest`, {
       sendReq,
     });
   }
-
-  async function m1() {
-    // const response = JSON.parse(localStorage.getItem("response"));
-    const token = localStorage.getItem("access_token");
-    const octokit = new Octokit({
-      auth: String(token),
-    });
-
-    const user = localStorage.getItem("username");
-
-    const tmProfile = await octokit.request(
-      "GET /repos/{owner}/{repo}/contents/{path}",
-      {
-        owner: user,
-        repo: `${user}`,
-        path: "README.md",
-      }
-    );
-    return atob(tmProfile.data.content);
-  }
-
-  // const content = m1();
-  // console.log(`???${content}`);
-  // const content = setTimeout(m1(), 3000);
-  // console.log(content);
 
   return (
     <div>
@@ -133,13 +141,14 @@ function Resume({ match }) {
 
       <Container fluid="md">
         <Row>
-          <Col>
-            <Content>
-              <p>ReadmeContent</p>
+          <>
+            <h1>ReadmeContent</h1>
+            <ReadmeStyle>
               <ResumeProfile />
-            </Content>
-          </Col>
-          <Col>
+            </ReadmeStyle>
+          </>
+
+          <>
             <Content>
               <FloatingLabel
                 controlId="floatingTextarea"
@@ -198,7 +207,7 @@ function Resume({ match }) {
                 </div>
               </Container>
             </Content>
-          </Col>
+          </>
         </Row>
       </Container>
     </div>

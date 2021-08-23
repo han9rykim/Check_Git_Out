@@ -3,16 +3,23 @@ import { Octokit } from "@octokit/rest";
 import styled from "styled-components";
 import marked from "marked";
 
+const Title = styled.div`
+  font-size: 1.5em;
+  text-align: left;
+  color: black;
+`;
+
 function encode_utf8(s) {
+  // string -> base64 encoding
   return unescape(encodeURIComponent(s));
 }
 
 function decode_utf8(s) {
+  //base64 -> utf8
   return decodeURIComponent(escape(s));
 }
 
 async function getProfileObj() {
-  // const response = JSON.parse(localStorage.getItem("response"));
   const token = localStorage.getItem("access_token");
   const octokit = new Octokit({
     auth: String(token),
@@ -20,7 +27,7 @@ async function getProfileObj() {
 
   const user = localStorage.getItem("username");
 
-  const tmProfile = await octokit.request(
+  const userReadme = await octokit.request(
     "GET /repos/{owner}/{repo}/contents/{path}",
     {
       owner: user,
@@ -29,7 +36,7 @@ async function getProfileObj() {
     }
   );
 
-  return decode_utf8(atob(tmProfile.data.content));
+  return decode_utf8(atob(userReadme.data.content));
 }
 
 function ResumeProfile(props) {
@@ -52,10 +59,9 @@ function ResumeProfile(props) {
 
   return (
     <div>
-      <div
+      <Title
         id="preview"
         dangerouslySetInnerHTML={{ __html: marked(con, { render: renderer }) }}
-        // dangerouslySetInnerHTML={createMarkUp(con)}
       />
     </div>
   );

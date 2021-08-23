@@ -1,91 +1,34 @@
-import axios from "axios";
 import React from "react";
-import { useAsync } from "react-async";
-import { Octokit } from "@octokit/rest";
+import styled from "styled-components";
+import ResumeProfile from "../resume/ResumeProfile";
 
-async function m1() {
-  // const response = JSON.parse(localStorage.getItem("response"));
-  const token = localStorage.getItem("access_token");
-  const octokit = new Octokit({
-    auth: String(token),
-  });
-  const { data } = await axios.get("https://api.github.com/user", {
-    headers: {
-      Authorization: `token ${token}`,
-    },
-  });
-  const owner = data.login;
+const TemplateBlock = styled.div`
+  width: 920px;
+  height: 1400px;
 
-  const tmProfile = await octokit.request(
-    "GET /repos/{owner}/{repo}/contents/{path}",
-    {
-      owner: owner,
-      repo: `${owner}`,
-      path: "README.md",
-    }
-  );
-  return atob(tmProfile.data.content);
-}
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+  margin: 0 auto;
+  margin-top: 96px;
+  margin-bottom: 32px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+`;
 
 function Mypage() {
-  const url = localStorage.getItem("ProfileURL");
-  var value = m1();
-  console.log({ value });
   return (
     <div>
-      <img src={url} />
+      <TemplateBlock>
+        <ResumeProfile />
+      </TemplateBlock>
     </div>
   );
 }
 
 export default Mypage;
-
-// import axios from "axios";
-// import React from "react";
-// import { useAsync } from "react-async";
-// import { Octokit } from "@octokit/rest";
-
-// async function m1() {
-//   // const response = JSON.parse(localStorage.getItem("response"));
-//   const token = localStorage.getItem("access_token");
-//   const octokit = new Octokit({
-//     auth: String(token),
-//   });
-//   const { data } = await axios.get("https://api.github.com/user", {
-//     headers: {
-//       Authorization: `token ${token}`,
-//     },
-//   });
-//   const owner = data.login;
-
-//   const tmProfile = await octokit.request(
-//     "GET /repos/{owner}/{repo}/contents/{path}",
-//     {
-//       owner: owner,
-//       repo: `${owner}Resume`,
-//       path: "README.md",
-//     }
-//   );
-//   return atob(tmProfile.data.content);
-// }
-
-// function Mypage() {
-//   var value = "";
-//   if (localStorage.getItem("response")) {
-//     value = m1();
-//     console.log(value);
-//     console.log("뭐라도 정보는 있고만");
-//   }
-
-//   const result = value.PromiseResult;
-//   console.log(result);
-
-//   return (
-//     <div>
-//       <h1>로그인 되었습니다.</h1>
-//       <h1>{result}</h1>
-//     </div>
-//   );
-// }
-
-// export default Mypage;

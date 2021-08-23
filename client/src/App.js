@@ -4,11 +4,12 @@ import { createGlobalStyle } from "styled-components";
 import RouteHome from "./components/RouteHome";
 import Banner from "./components/home/Banner";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ResumeProfile from "./components/resume/ResumeProfile";
 
 const GlobalStyle = createGlobalStyle`
   body{
     background: #e9ecef;
-	text-align: center;
+    text-align: center;
   }	
 `;
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <GlobalStyle />
       <Banner />
       <RouteHome />
+      {/* <ResumeProfile /> */}
     </div>
   );
 }
