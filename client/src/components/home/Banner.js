@@ -10,6 +10,11 @@ import {
   Form,
   FormControl,
 } from "react-bootstrap";
+import styled from "styled-components";
+
+const Block = styled.div`
+  justify-content: center;
+`;
 
 function Banner() {
   const [isLogin, setIsLogin] = useState(false);
@@ -39,54 +44,46 @@ function Banner() {
 
   return (
     <div>
-      <Navbar bg="light" variant="light" expand="lg">
-        <Navbar.Toggle aria-controls="navbarScroll" />
+      <Block>
+        <Navbar bg="light" variant="light" expand="xxl">
+          <Navbar.Toggle aria-controls="navbarScroll" />
 
-        <Container>
-          <Navbar.Collapse id="navbarScroll">
-            <Navbar.Brand href="/">
-              <img src="img/logo_CNU.png" height="40px" />
-            </Navbar.Brand>
-            <Nav
-              className="me-auto"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <Nav.Link href="/about">About</Nav.Link>
-              <Nav.Link href="/resume">Resume</Nav.Link>
-              <Nav.Link href="/rank">Rank</Nav.Link>
-              <Nav.Link href="/mypage">My Page</Nav.Link>
-              <accountdiv>
-                {isLogin ? (
-                  <logouttag onClick={() => handleLogOut()}>
-                    <Nav.Link href="/">
-                      <img src={imgURL} width="30px" height="30px" />
-                      Logout
-                    </Nav.Link>
-                  </logouttag>
-                ) : (
-                  <logintag>
-                    <Nav.Link href={url}>Login</Nav.Link>
-                  </logintag>
-                )}
-              </accountdiv>
-              <NavDropdown title="Setting" id="navbarScrollingDropdown">
+          <Container>
+            <Navbar.Collapse id="navbarScroll">
+              <Navbar.Brand href="/">
+                <img src="img/logo_CNU.png" height="40px" />
+              </Navbar.Brand>
+              <Nav
+                className="me-auto"
+                style={{ maxHeight: "100px" }}
+                navbarScroll
+              >
+                <Nav.Link href="/about">About</Nav.Link>
+                <Nav.Link href="/resume">Resume</Nav.Link>
+                {/* <Nav.Link href="/rank">Rank</Nav.Link> */}
+                <Nav.Link href="/mypage">My Page</Nav.Link>
                 <accountdiv>
                   {isLogin ? (
-                    <logouttag>
-                      <NavDropdown.Item href="/mypage">
-                        My Page
-                      </NavDropdown.Item>
+                    <logouttag onClick={() => handleLogOut()}>
+                      <Nav.Link href="/">
+                        <img src={imgURL} width="30px" height="30px" />
+                        Logout
+                      </Nav.Link>
                     </logouttag>
                   ) : (
-                    <logintag></logintag>
+                    <logintag>
+                      <Nav.Link href={url}>Login</Nav.Link>
+                    </logintag>
                   )}
                 </accountdiv>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+                {/* <NavDropdown title="Setting" id="navbarScrollingDropdown">
+                  
+                </NavDropdown> */}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </Block>
     </div>
   );
 }

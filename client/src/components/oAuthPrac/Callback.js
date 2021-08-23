@@ -7,7 +7,7 @@ import { Route } from "react-router-dom";
 import Home from "../home/Home";
 
 function Callback({ history, location }) {
-  console.log("도착");
+  // console.log("도착");
   useEffect(() => {
     async function getToken() {
       const { code } = qs.parse(location.search, {

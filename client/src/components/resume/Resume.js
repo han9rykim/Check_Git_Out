@@ -12,10 +12,8 @@ import styled from "styled-components";
 import axios from "axios";
 import ResumeProfile from "./ResumeProfile";
 import { Octokit } from "@octokit/rest";
-
-const Block = styled.div`
-  justify-content: center;
-`;
+import qs from "qs";
+import Username from "../login/Username";
 
 const Content = styled.div`
   width: 920px;
@@ -58,44 +56,36 @@ const ReadmeStyle = styled.div`
   flex-direction: column;
 `;
 
-// const ReadmeStyle = styled.div`
-//   width: 920px;
-//   height: 1400px;
-//   position: relative;
-//   background: white;
-//   border-radius: 16px;
-//   box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-//   left: 500px;
-//   top: 10px;
-//   bottom: 20px;
-//   margin: 0 auto;
-//   margin-top: 10px;
-//   margin-bottom: 10px;
-//   padding-top: 10px;
-//   padding-right: 20px;
-//   padding-bottom: 20px;
-//   padding-left: 20px;
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-const data = {
-  dblepart99: {
-    name: "김현수",
-    desc: "최고",
-  },
-};
-
 // const response = axios.post(`http://168.188.129.200:8080/studentinfo`);
 // console.log(response);
+// const data = {}
 
-function Resume({ match }) {
+async function getStuInfo() {
+  const stuInfo = await axios.post(`http://168.188.129.200:8080/studentinfo`);
+  return stuInfo;
+}
+
+function Resume({ history, match }) {
   const [sendReq, setSendReq] = useState("");
   //갹채를 업데이트하기위해 useState안에 객체를 사용
   const [inputs, setInputs] = useState({
     name: "",
     title: "",
   });
+  // const [data, setData] = useState("");
+  const data = {
+    dblepart99: { name: "김현수" },
+    binaryKim99: { name: "김현수" },
+    HwangDongJun: { name: "황동준" },
+  };
+
+  // const promise = axios.post(`http://168.188.129.200:8080/studentinfo`);
+  // promise.then((value) => {
+  //   setData(value);
+  // });
+  // const prom = getStuInfo();
+  // console.log(data);
+
   //값을 가져오기 위해 inputs에 name으로 가져왔다
   const { name, title } = inputs;
 
@@ -105,10 +95,21 @@ function Resume({ match }) {
     // console.log(sendReq);
   }, [inputs]);
 
+  // const query = qs.parse(location.search, {
+  //   ignoreQueryPrefix: true,
+  // });
+  // console.log(query);
+
   const { username } = match.params;
+
   const profile = data[username];
   if (!profile) {
-    return <div>존재하지 않는 사용자입니다.</div>;
+    return (
+      <div>
+        존재하지 않는 사용자입니다.
+        <button onClick={() => history.goBack()}>뒤로 가기</button>
+      </div>
+    );
   }
   const onChange = (e) => {
     //input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -149,8 +150,8 @@ function Resume({ match }) {
 
   return (
     <div>
-      <h1>이력서 페이지</h1>
-      <Form className="d-flex">
+      <h1>이 력 서</h1>
+      {/* <Form className="d-flex">
         <FormControl
           type="search"
           placeholder="Search"
@@ -158,10 +159,9 @@ function Resume({ match }) {
           aria-label="Search"
         />
         <Button variant="outline-success">Search</Button>
-      </Form>
-      <h1>ReadmeContent</h1>
+      </Form> */}
       <ReadmeStyle>
-        <ResumeProfile />
+        <ResumeProfile props={username} />
       </ReadmeStyle>
 
       <Content>
