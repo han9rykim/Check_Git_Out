@@ -37,14 +37,6 @@ function Banner() {
     localStorage.removeItem("ProfileURL");
   };
 
-  const handleSearch = () => {
-    setIsLogin(false);
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("data");
-    localStorage.removeItem("username");
-    localStorage.removeItem("ProfileURL");
-  };
-
   return (
     <div>
       <Navbar bg="light" variant="light" expand="lg">
@@ -92,17 +84,6 @@ function Banner() {
                 </accountdiv>
               </NavDropdown>
             </Nav>
-
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="mr-2"
-                aria-label="Search"
-                // value={title}
-              />
-              <Button onClick={() => handleSearch()}>Search</Button>
-            </Form>
           </Navbar.Collapse>
         </Container>
       </Navbar>

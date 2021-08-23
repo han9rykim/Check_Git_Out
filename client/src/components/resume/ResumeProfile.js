@@ -26,17 +26,24 @@ async function getProfileObj() {
   });
 
   const user = localStorage.getItem("username");
-
-  const userReadme = await octokit.request(
-    "GET /repos/{owner}/{repo}/contents/{path}",
-    {
+  var haveRepo = true;
+  var returnContent = "";
+  const userReadme = await octokit
+    .request("GET /repos/{owner}/{repo}/contents/{path}", {
       owner: user,
       repo: `${user}`,
       path: "README.md",
-    }
-  );
-
-  return decode_utf8(atob(userReadme.data.content));
+    })
+    .catch((errorMessage, statusCode) => {
+      // This is never hit for a server 404 error
+      haveRepo = false;
+      returnContent = "# You Dont Have Repository with ReadMe";
+      // console.log(errorMessage, statusCode);
+    });
+  if (haveRepo) {
+    returnContent = decode_utf8(atob(userReadme.data.content));
+  }
+  return returnContent;
 }
 
 function ResumeProfile(props) {

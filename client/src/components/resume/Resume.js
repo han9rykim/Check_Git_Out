@@ -12,51 +12,72 @@ import styled from "styled-components";
 import axios from "axios";
 import ResumeProfile from "./ResumeProfile";
 import { Octokit } from "@octokit/rest";
+
+const Block = styled.div`
+  justify-content: center;
+`;
+
 const Content = styled.div`
   width: 920px;
-  height: 1400px;
-  position: absolute;
+  height: auto;
+  position: relative;
   background: white;
   border-radius: 16px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-  position: fixed;
 
-  right: 500px;
-  top: 130px;
+  top: 30px;
   bottom: 20px;
-
   margin: 0 auto;
-  margin-top: 96px;
-  margin-bottom: 32px;
-  padding-top: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 100px;
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
   flex-direction: column;
 `;
-
 const ReadmeStyle = styled.div`
   width: 920px;
-  height: 1400px;
-  position: absolute;
+  height: auto;
+  position: relative;
   background: white;
   border-radius: 16px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-  position: fixed;
-  left: 500px;
-  top: 130px;
+  align-items: center;
+  top: 30px;
   bottom: 20px;
   margin: 0 auto;
-  margin-top: 96px;
+  margin-top: 10px;
   margin-bottom: 100px;
-  padding-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 10px;
   padding-right: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
   display: flex;
   flex-direction: column;
 `;
+
+// const ReadmeStyle = styled.div`
+//   width: 920px;
+//   height: 1400px;
+//   position: relative;
+//   background: white;
+//   border-radius: 16px;
+//   box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+//   left: 500px;
+//   top: 10px;
+//   bottom: 20px;
+//   margin: 0 auto;
+//   margin-top: 10px;
+//   margin-bottom: 10px;
+//   padding-top: 10px;
+//   padding-right: 20px;
+//   padding-bottom: 20px;
+//   padding-left: 20px;
+//   display: flex;
+//   flex-direction: column;
+// `;
 
 const data = {
   dblepart99: {
@@ -138,78 +159,61 @@ function Resume({ match }) {
         />
         <Button variant="outline-success">Search</Button>
       </Form>
+      <h1>ReadmeContent</h1>
+      <ReadmeStyle>
+        <ResumeProfile />
+      </ReadmeStyle>
 
-      <Container fluid="md">
-        <Row>
-          <>
-            <h1>ReadmeContent</h1>
-            <ReadmeStyle>
-              <ResumeProfile />
-            </ReadmeStyle>
-          </>
+      <Content>
+        <FloatingLabel
+          controlId="floatingTextarea"
+          label="Title"
+          className="mb-3"
+        >
+          <Form.Control
+            as="textarea"
+            placeholder="Leave a comment here"
+            name="title"
+            onChange={onChange}
+            value={title}
+          />
+        </FloatingLabel>
 
-          <>
-            <Content>
-              <FloatingLabel
-                controlId="floatingTextarea"
-                label="Title"
-                className="mb-3"
-              >
-                <Form.Control
-                  as="textarea"
-                  placeholder="Leave a comment here"
-                  name="title"
-                  onChange={onChange}
-                  value={title}
-                />
-              </FloatingLabel>
+        <FloatingLabel controlId="floatingTextarea2" label="description">
+          <Form.Control
+            type="password"
+            as="textarea"
+            style={{ height: "100px" }}
+            name="name" //위에서 name의 값을 가져와 타겟을 가져온다.
+            placeholder="description"
+            onChange={onChange}
+            value={name}
+          />
+        </FloatingLabel>
 
-              <FloatingLabel controlId="floatingTextarea2" label="description">
-                <Form.Control
-                  type="password"
-                  as="textarea"
-                  style={{ height: "100px" }}
-                  name="name" //위에서 name의 값을 가져와 타겟을 가져온다.
-                  placeholder="description"
-                  onChange={onChange}
-                  value={name}
-                />
-              </FloatingLabel>
-
-              <Container fluid="md">
-                <Row>
-                  <Col>
-                    <Button
-                      as="input"
-                      type="submit"
-                      value="Save to DB"
-                      onClick={() => saveToDB()}
-                    />
-                  </Col>
-                  <Col>
-                    <Button
-                      as="input"
-                      type="submit"
-                      value="Commit to Forked Repo"
-                    />
-                  </Col>
-                  <Col>
-                    <Button
-                      as="input"
-                      type="submit"
-                      value="Create Pull Request"
-                    />
-                  </Col>
-                </Row>
-                <button onClick={onReset}>초기화</button>
-                <div>
-                  최종 내용: [{title} - {name}]
-                </div>
-              </Container>
-            </Content>
-          </>
-        </Row>
-      </Container>
+        <Container fluid="md">
+          <Row>
+            <Col>
+              <Button
+                as="input"
+                type="submit"
+                value="Save to DB"
+                onClick={() => saveToDB()}
+              />
+            </Col>
+            <Col>
+              <Button as="input" type="submit" value="Commit to Forked Repo" />
+            </Col>
+            <Col>
+              <Button as="input" type="submit" value="Create Pull Request" />
+            </Col>
+          </Row>
+          <button onClick={onReset}>초기화</button>
+          <div>
+            최종 내용: [{title} - {name}]
+          </div>
+        </Container>
+      </Content>
     </div>
   );
 }

@@ -18,7 +18,7 @@ import Errorpage from "./error/Errorpage";
 function RouteHome() {
   return (
     <div>
-      <Route path="/" component={Home} exact />
+      <Route path="/" component={Home} exact={true} />
       <Route path="/about" component={About} />
       <Route path="/setting" component={Setting} />
       <Route path="/profiles" component={Profiles} />

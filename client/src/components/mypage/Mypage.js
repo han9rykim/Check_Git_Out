@@ -5,7 +5,6 @@ import ResumeProfile from "../resume/ResumeProfile";
 const TemplateBlock = styled.div`
   width: 920px;
   height: 1400px;
-
   position: relative;
   background: white;
   border-radius: 16px;
