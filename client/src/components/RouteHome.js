@@ -13,7 +13,6 @@ import RankHome from "./rank/RankHome";
 import Callback from "./oAuthPrac/Callback";
 import Username from "./login/Username";
 import Mypage from "./mypage/Mypage";
-
 import Errorpage from "./error/Errorpage";
 
 function RouteHome() {
@@ -31,6 +30,7 @@ function RouteHome() {
       <Route path="/login/username" component={Username} />
       <Route path="/mypage" component={Mypage} />
       <Route path="/error" component={Errorpage} />
+      <Route path="/resume" component={Resume} exact={true} />
       <Route path="/resume/:username" component={Resume} />
     </div>
   );

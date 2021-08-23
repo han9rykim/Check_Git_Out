@@ -24,11 +24,11 @@ function Banner() {
   useEffect(() => {
     if (token) {
       setIsLogin(true);
-      console.log(`11111+${isLogin}`);
+      // console.log(`11111+${isLogin}`);
       setImgURL(localStorage.getItem("ProfileURL"));
-      console.log(imgURL);
+      // console.log(imgURL);
     }
-    console.log(isLogin);
+    // console.log(isLogin);
   }, [token]);
 
   const handleLogOut = () => {

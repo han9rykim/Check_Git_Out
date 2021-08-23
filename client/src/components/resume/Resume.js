@@ -10,6 +10,8 @@ import {
 } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
+import ResumeProfile from "./ResumeProfile";
+import { Octokit } from "@octokit/rest";
 const Content = styled.div`
   width: 100%;
   height: 170%;
@@ -30,6 +32,9 @@ const data = {
     desc: "최고",
   },
 };
+
+// const response = axios.post(`http://168.188.129.200:8080/studentinfo`);
+// console.log(response);
 
 function Resume({ match }) {
   const [sendReq, setSendReq] = useState("");
@@ -88,6 +93,31 @@ function Resume({ match }) {
     });
   }
 
+  async function m1() {
+    // const response = JSON.parse(localStorage.getItem("response"));
+    const token = localStorage.getItem("access_token");
+    const octokit = new Octokit({
+      auth: String(token),
+    });
+
+    const user = localStorage.getItem("username");
+
+    const tmProfile = await octokit.request(
+      "GET /repos/{owner}/{repo}/contents/{path}",
+      {
+        owner: user,
+        repo: `${user}`,
+        path: "README.md",
+      }
+    );
+    return atob(tmProfile.data.content);
+  }
+
+  // const content = m1();
+  // console.log(`???${content}`);
+  // const content = setTimeout(m1(), 3000);
+  // console.log(content);
+
   return (
     <div>
       <h1>이력서 페이지</h1>
@@ -106,6 +136,7 @@ function Resume({ match }) {
           <Col>
             <Content>
               <p>ReadmeContent</p>
+              <ResumeProfile />
             </Content>
           </Col>
           <Col>
