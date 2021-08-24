@@ -19,13 +19,14 @@ function decode_utf8(s) {
   return decodeURIComponent(escape(s));
 }
 
-async function getProfileObj() {
+async function getProfileObj(props) {
   const token = localStorage.getItem("access_token");
   const octokit = new Octokit({
     auth: String(token),
   });
 
-  const user = localStorage.getItem("username");
+  // const user = localStorage.getItem("username");
+  const user = props;
   var haveRepo = true;
   var returnContent = "";
   const userReadme = await octokit
@@ -48,7 +49,8 @@ async function getProfileObj() {
 
 function ResumeProfile(props) {
   const [content, setContent] = useState("");
-  const promise = getProfileObj();
+  const promise = getProfileObj(props.props);
+  // console.log(props);
   promise.then((value) => {
     setContent(value);
   });

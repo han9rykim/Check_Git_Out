@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
 import {
   Button,
   Container,
@@ -15,50 +16,126 @@ import { Octokit } from "@octokit/rest";
 import qs from "qs";
 import Username from "../login/Username";
 
-const Content = styled.div`
-  width: 920px;
-  height: auto;
-  position: relative;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-
-  top: 30px;
-  bottom: 20px;
+const ReadmeBackGroundBlock = styled.div`
+  position: absolute;
+  overflow: scroll;
+  width: 870px;
+  height: 830px;
+  left: 100px;
+  top: 80px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 10px;
   margin: 0 auto;
-  margin-top: 10px;
-  margin-bottom: 100px;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-`;
-const ReadmeStyle = styled.div`
-  width: 920px;
-  height: auto;
-  position: relative;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-  align-items: center;
-  top: 30px;
-  bottom: 20px;
-  margin: 0 auto;
-  margin-top: 10px;
-  margin-bottom: 100px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-bottom: 32px;
 `;
 
-// const response = axios.post(`http://168.188.129.200:8080/studentinfo`);
-// console.log(response);
-// const data = {}
+const CommitBlock = styled.div`
+  position: absolute;
+  width: 665px;
+  height: 410px;
+  left: 1085px;
+  top: 500px;
+  background: rgba(197, 197, 197, 0.65);
+  border-radius: 10px;
+`;
+
+const CommitLogBlock = styled.div`
+  position: absolute;
+  width: 665px;
+  height: 360px;
+  left: 1085px;
+  top: 80px;
+  margin: 0 auto;
+  background: rgba(197, 197, 197, 0.65);
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
+
+const CommitLogTitle = styled.div`
+  position: absolute;
+  width: 606px;
+  height: 55px;
+  left: 1115px;
+  top: 105px;
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 60px;
+  color: #ffffff;
+`;
+
+const CommitLog = styled.div`
+  position: absolute;
+  width: 606px;
+  height: 240px;
+  left: 1115px;
+  top: 180px;
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
+
+const TitleBlock = styled.input`
+  position: absolute;
+  width: 605px;
+  height: 50px;
+  left: 1115px;
+  top: 580px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: block;
+  color: #8d8d8d;
+  background: #ffffff;
+`;
+
+const DateBlock = styled.input`
+  position: absolute;
+  width: 605px;
+  height: 55px;
+  left: 1115px;
+  top: 510px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: block;
+  color: #8d8d8d;
+  background: #ffffff;
+`;
+
+const DescriptionBlock = styled.input`
+  position: absolute;
+  width: 605px;
+  height: 150px;
+  left: 1115px;
+  top: 640px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: block;
+  color: #8d8d8d;
+  background: #ffffff;
+`;
+
+const MergeBtnBlock = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 1326px;
+  top: 850px;
+
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
 
 async function getStuInfo() {
   const stuInfo = await axios.post(`http://168.188.129.200:8080/studentinfo`);
@@ -66,154 +143,110 @@ async function getStuInfo() {
 }
 
 function Resume({ history, match }) {
-  const [sendReq, setSendReq] = useState("");
-  //갹채를 업데이트하기위해 useState안에 객체를 사용
-  const [inputs, setInputs] = useState({
-    name: "",
-    title: "",
-  });
-  // const [data, setData] = useState("");
-  const data = {
-    dblepart99: { name: "김현수" },
-    binaryKim99: { name: "김현수" },
-    HwangDongJun: { name: "황동준" },
-  };
-
-  // const promise = axios.post(`http://168.188.129.200:8080/studentinfo`);
-  // promise.then((value) => {
-  //   setData(value);
-  // });
-  // const prom = getStuInfo();
-  // console.log(data);
-
-  //값을 가져오기 위해 inputs에 name으로 가져왔다
-  const { name, title } = inputs;
-
-  useEffect(() => {
-    setSendReq(`${title} - ${name}`);
-    // console.log("입력했다.");
-    // console.log(sendReq);
-  }, [inputs]);
-
-  // const query = qs.parse(location.search, {
-  //   ignoreQueryPrefix: true,
-  // });
-  // console.log(query);
-
   const { username } = match.params;
 
-  const profile = data[username];
-  if (!profile) {
-    return (
-      <div>
-        존재하지 않는 사용자입니다.
-        <button onClick={() => history.goBack()}>뒤로 가기</button>
-      </div>
-    );
-  }
-  const onChange = (e) => {
-    //input에 name을 가진 요소의 value에 이벤트를 걸었다
-    const { name, value } = e.target;
-
-    // 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
-    const nextInputs = {
-      //스프레드 문법으로 기존의 객체를 복사한다.
-      ...inputs,
-      [name]: value,
-    };
-    //만든 변수를 seInput으로 변경해준다.
-    setInputs(nextInputs);
+  const [date, setDate] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [sendReq, setSendReq] = useState("");
+  const onChangeTitle = (e) => {
+    setTitle(e.target.value);
   };
+  const onChangeDescription = (e) => setDescription(e.target.value);
+  const onChangeDate = (e) => setDate(e.target.value);
 
-  const onReset = () => {
-    const resetInputs = {
-      name: "",
-      title: "",
-    };
-    //초기화 객체값을 넣은 변수로 변경하도록 셋인풋 실행
-    setInputs(resetInputs);
-  };
+  useEffect(() => {
+    setSendReq(`[${date}] [${title}] - ${description} `);
+  }, [date, title, description]);
 
-  function saveToDB() {
-    console.log(sendReq);
-    sessionStorage.setItem("content", sendReq);
+  // const data = {
+  //   dblepart99: { name: "김현수" },
+  //   binaryKim99: { name: "김현수" },
+  //   HwangDongJun: { name: "황동준" },
+  // };
+  // const profile = data[username];
+  // console.log(profile);
+  // /*
+  // 쿼리문 날려서 실제로 있는 학생인지 찾기.
+  // 조건 처리 필요.
+  // */
+
+  // if (!profile) {
+  //   console.log("???");
+  //   return (
+  //     <div>
+  //       존재하지 않는 사용자입니다.
+  //       <button onClick={() => history.goBack()}>뒤로 가기</button>
+  //     </div>
+  //   );
+  // }
+
+  const onClick = () => {
+    alert(`[${date}] [${title}] - ${description} `);
+
+    setTitle("");
+    setDescription("");
+    setDate("");
     axios.post(`http://168.188.129.200:8080/pullrequest`, {
       sendReq,
     });
-  }
+  };
 
-  function sendPR() {
-    axios.post(`http://168.188.129.200:8080/pullrequest`, {
-      sendReq,
-    });
-  }
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
+  const onKeyPressDate = (e) => {
+    if (e.key === "Enter") {
+      alert("description을 입력해주세요.");
+    }
+  };
+  const onKeyPressTitle = (e) => {
+    if (e.key === "Enter") {
+      alert("빈칸이 남아있습니다.");
+    }
+  };
 
   return (
     <div>
-      <h1>이 력 서</h1>
-      {/* <Form className="d-flex">
-        <FormControl
-          type="search"
-          placeholder="Search"
-          className="mr-2"
-          aria-label="Search"
-        />
-        <Button variant="outline-success">Search</Button>
-      </Form> */}
-      <ReadmeStyle>
+      <ReadmeBackGroundBlock>
         <ResumeProfile props={username} />
-      </ReadmeStyle>
+      </ReadmeBackGroundBlock>
+      <CommitLogBlock />
+      <CommitLogTitle>Commit Log</CommitLogTitle>
+      <CommitLog />
 
-      <Content>
-        <FloatingLabel
-          controlId="floatingTextarea"
-          label="Title"
-          className="mb-3"
-        >
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a comment here"
-            name="title"
-            onChange={onChange}
-            value={title}
-          />
-        </FloatingLabel>
+      <CommitBlock />
+      <DateBlock
+        type="text"
+        name="date"
+        placeholder="date"
+        value={date}
+        onChange={onChangeDate}
+        onKeyPress={onKeyPressDate}
+      />
 
-        <FloatingLabel controlId="floatingTextarea2" label="description">
-          <Form.Control
-            type="password"
-            as="textarea"
-            style={{ height: "100px" }}
-            name="name" //위에서 name의 값을 가져와 타겟을 가져온다.
-            placeholder="description"
-            onChange={onChange}
-            value={name}
-          />
-        </FloatingLabel>
+      <TitleBlock
+        type="text"
+        name="title"
+        placeholder="title"
+        value={title}
+        onChange={onChangeTitle}
+        onKeyPress={onKeyPressTitle}
+      />
 
-        <Container fluid="md">
-          <Row>
-            <Col>
-              <Button
-                as="input"
-                type="submit"
-                value="Save to DB"
-                onClick={() => saveToDB()}
-              />
-            </Col>
-            <Col>
-              <Button as="input" type="submit" value="Commit to Forked Repo" />
-            </Col>
-            <Col>
-              <Button as="input" type="submit" value="Create Pull Request" />
-            </Col>
-          </Row>
-          <button onClick={onReset}>초기화</button>
-          <div>
-            최종 내용: [{title} - {name}]
-          </div>
-        </Container>
-      </Content>
+      <DescriptionBlock
+        type="text"
+        name="description"
+        placeholder="description"
+        value={description}
+        onChange={onChangeDescription}
+        onKeyPress={onKeyPress}
+      />
+      <button onClick={onClick}>
+        <MergeBtnBlock>확인</MergeBtnBlock>
+      </button>
     </div>
   );
 }

@@ -4,8 +4,9 @@ import ResumeProfile from "../resume/ResumeProfile";
 
 const ReadmeBackGroundBlock = styled.div`
   position: absolute;
+  overflow: scroll;
   width: 870px;
-  min-height: 750px;
+  height: 830px;
   left: 100px;
   top: 80px;
   background: #ffffff;
@@ -18,10 +19,14 @@ const ReadmeBackGroundBlock = styled.div`
 `;
 
 function Mypage() {
+  var username = "";
+  if (localStorage.getItem("username")) {
+    username = localStorage.getItem("username");
+  }
   return (
     <div>
       <ReadmeBackGroundBlock>
-        <ResumeProfile />
+        <ResumeProfile props={username} />
       </ReadmeBackGroundBlock>
     </div>
   );
