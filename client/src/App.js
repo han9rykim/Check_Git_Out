@@ -27,7 +27,6 @@ function App() {
       <GlobalStyle />
       <Banner />
       <RouteHome />
-      {/* <ResumeProfile /> */}
     </div>
   );
 }

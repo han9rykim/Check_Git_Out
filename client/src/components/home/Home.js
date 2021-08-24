@@ -1,78 +1,65 @@
 import React from "react";
 import ResumeProfile from "../resume/ResumeProfile";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { Button, Form, FormControl, Nav } from "react-bootstrap";
 import { Link, Route } from "react-router-dom";
+import marked from "marked";
 
-const TemplateBlock = styled.div`
-  width: 920px;
-  height: 1400px;
+const ContentBlock = styled.div`
   position: relative;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-  margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 32px;
-  padding-top: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
+  font-size: 1.2em;
+  text-align: left;
+  color: white;
+  width: 870px;
+  background: rgba(22, 65, 148, 0.8);
+  height: 450px;
+  left: 500px;
+  top: 140px;
+  border-radius: 10px;
+  padding-right: 30px;
+  padding-left: 30px;
 `;
-const SearchBlock = styled.div`
+
+const Block = styled.div`
   position: relative;
-  width: 920px;
-  height: 40px;
-  margin: 0 auto;
-  margin-top: 30px;
-  padding-right: 20px;
-  padding-left: 20px;
+  top: 100px;
+  border-radius: 10px;
 `;
-const handleSearch = () => {};
 
 function Home() {
-  const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo,admin:repo_hook,admin:org`;
-  var isLogin = false;
-  if (localStorage.getItem("ProfileURL")) {
-    isLogin = true;
-  }
+  const renderer = new marked.Renderer();
+  const content = `# Check Git Out! 
+## Github를 활용한 학생이력관리시스템 
+본 시스템은 보다 신뢰성 높은 방식으로 학생의 활동을 인증하기 위해 만들어진 시스템입니다.<br/>
+Git의 Commit과 Pull Request, Merge를 활용한 방식으로 학생의 이력서를 누가 인증해주었는지 보다 투명하게 보여줍니다.
 
+### 사용방법
+1. Repository를 생성합니다. Repository의 이름은 {username}Resume입니다.<br/>정해진 형식을 지키지 않을 경우 이력서가 관리되지 않을 수 있습니다. 
+2. 생성된 Repository의 최상단 디렉토리에 Readme.md파일을 생성하고, 본인이 작성하고 싶은 이력이 있을 경우 작성하셔도 됩니다.
+3. 관리자의 이메일hyunsoo99kim@gmail.com로 <br/>[CheckGitOut 인증 요청] 을 제목으로 하여 연락을 주시기 바랍니다. (인증은 최대 1일 소요될 수 있습니다.)
+`;
+  const con = marked(content, {
+    pedantic: true,
+    gfm: true,
+    breaks: true,
+    sanitize: false,
+    smartLists: true,
+    smartypants: true,
+    xhtml: true,
+  });
   return (
     <div>
-      {/* <SearchBlock>
-        <Form className="d-flex">
-          <FormControl
-            type="search"
-            placeholder="Search"
-            className="mr-2"
-            aria-label="Search"
-            // value={title}
-          />
-          <Button onClick={() => handleSearch()}>Search</Button>
-        </Form>
-      </SearchBlock> */}
-
-      <br />
-      <div>
-        {isLogin ? (
-          <logouttag>
-            <h1>Check Git Out!</h1>
-            <TemplateBlock>
-              <ResumeProfile />
-            </TemplateBlock>
-          </logouttag>
-        ) : (
-          <div>
-            <h1>Check Git Out!</h1>
-            <h1>Github를 활용한 학생 이력관리 서비스</h1>
-            <br />
-            <h3>Github를 이용하여 여러분의 이력을 관리해드립니다.</h3>
-          </div>
-        )}
-      </div>
+      <Block>
+        <img src="img/GithubLogo.png" />
+        <br />
+        <img src="img/logo_CNU.png" />
+      </Block>
+      <ContentBlock
+        id="preview"
+        dangerouslySetInnerHTML={{
+          __html: marked(con, { render: renderer }),
+        }}
+      />
     </div>
   );
 }

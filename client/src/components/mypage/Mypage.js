@@ -2,30 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import ResumeProfile from "../resume/ResumeProfile";
 
-const TemplateBlock = styled.div`
-  width: 920px;
-  height: 1400px;
-  position: relative;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+const ReadmeBackGroundBlock = styled.div`
+  position: absolute;
+  width: 870px;
+  min-height: 750px;
+  left: 100px;
+  top: 80px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 10px;
   margin: 0 auto;
-  margin-top: 96px;
+  padding-right: 30px;
+  padding-left: 30px;
   margin-bottom: 32px;
-  padding-top: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
 `;
 
 function Mypage() {
   return (
     <div>
-      <TemplateBlock>
+      <ReadmeBackGroundBlock>
         <ResumeProfile />
-      </TemplateBlock>
+      </ReadmeBackGroundBlock>
     </div>
   );
 }

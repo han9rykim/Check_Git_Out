@@ -1,10 +1,18 @@
 import axios from "axios";
 import { useEffect } from "react";
 import qs from "qs";
-import { Octokit } from "@octokit/rest";
 import Spinner from "react-bootstrap/Spinner";
-import { Route } from "react-router-dom";
-import Home from "../home/Home";
+import styled from "styled-components";
+
+const LoadingBlock = styled.div`
+  position: relative;
+  width: auto;
+  height: auto;
+
+  top: 300px;
+
+  border-radius: 10px;
+`;
 
 function Callback({ history, location }) {
   // console.log("도착");
@@ -49,7 +57,9 @@ function Callback({ history, location }) {
 
   return (
     <div>
-      <Spinner animation="border" />
+      <LoadingBlock>
+        <Spinner animation="border" />
+      </LoadingBlock>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import marked from "marked";
 
 const Title = styled.div`
-  font-size: 1.5em;
+  font-size: 1.2em;
   text-align: left;
   color: black;
 `;
