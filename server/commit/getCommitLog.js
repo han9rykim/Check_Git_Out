@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
             } else {
               res.send(sendContent);
             }
-            console.log(`???${sendContent}`);
+            console.log(`${sendContent}`);
           }
         });
       } catch (err) {

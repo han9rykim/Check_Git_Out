@@ -47,7 +47,10 @@ async function makeCommittoRepo(token, inputLine, student) {
 
 router.post("/", async (req, res) => {
   const response = req.body;
-  //   console.log(response);
+  var sql = "SELECT * FROM commitlog WHERE stu_username=?";
+  var params = [response.headers.stuname];
+  var prof = [];
+  var content = [];
 
   try {
     const con = await mysql.createConnection({
@@ -62,38 +65,33 @@ router.post("/", async (req, res) => {
       console.log("Make Commit router Connected");
     });
 
-    var sql = "SELECT * FROM commitlog WHERE stu_username=?";
-    var params = [response.headers.stuname];
-    var prof = [];
-    var content = [];
+    try {
+      await con.query(sql, params, function (err, rows, fields) {
+        if (err) {
+          console.log(err);
+        } else {
+          for (var i = 0; i < rows.length; i++) {
+            prof.push(rows[i].username);
+            content.push(rows[i].content);
+          }
+          console.log("pushed");
 
-    await con.query(sql, params, function (err, rows, fields) {
-      if (err) {
-        console.log(err);
-      } else {
-        // const token = "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";
-        // makeCommittoRepo(token, rows[0].content, rows[0].stu_username);
-        // for (var i = 0; i < rows.length; i++) {
-        //   prof.
-        // }
-        // for (var i = 0; i < rows.length; i++) {
-        //   const username = rows[i].username;
-        //   var sql = "SELECT token FROM user WHERE username=?";
-        //   var params = [username];
-        //   var token = "";
-        //   console.log(`이전 토큰${token}`);
-        //   con.query(sql, params, function (err, rows, fields) {
-        //     if (err) {
-        //       console.log(err);
-        //     } else {
-        //       token = rows[0].token;
-        //     }
-        //   });
-        //   makeCommittoRepo(token, rows[i].content, rows[i].stu_username);
-        //   console.log(`이후 토큰${token}`);
-        // }
-      }
-    });
+          for (var i = 0; i < prof.length; i++) {
+            console.log("안" + prof[i] + ":" + content[i]);
+          }
+          try {
+            for (var i = 0; i < prof.length; i++) {
+              console.log("2" + prof[i] + ":" + content[i]);
+            }
+            console.log("ended");
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   } catch (err) {
     console.log(err);
   }
