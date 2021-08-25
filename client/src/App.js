@@ -4,7 +4,6 @@ import { createGlobalStyle } from "styled-components";
 import RouteHome from "./components/RouteHome";
 import Banner from "./components/home/Banner";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ResumeProfile from "./components/resume/ResumeProfile";
 
 const GlobalStyle = createGlobalStyle`
   body{

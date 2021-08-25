@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Container,
-  Row,
-  Col,
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-} from "react-bootstrap";
 import styled from "styled-components";
 
 const LetterTemplate = styled.div`
@@ -38,7 +27,7 @@ const CnuLogoBlock = styled.div`
   height: 34px;
   left: 11px;
   top: 8px;
-  background: url("img/logo_CNU.png");
+  background: url("https://user-images.githubusercontent.com/39149858/130719419-5fa0003e-b3e1-4743-bc08-34e3fe735028.png");
   background-size: 100%;
 `;
 //border-color: #c4c4c4;
@@ -110,7 +99,8 @@ const IconBlock = styled.div`
   top: 8px;
 `;
 
-function Banner() {
+function Banner({ history }) {
+  const [searchUser, setSearchUser] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [imgURL, setImgURL] = useState("");
   const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
@@ -127,6 +117,10 @@ function Banner() {
     }
     // console.log(isLogin);
   }, [token]);
+  const handleChange = ({ target: { value } }) => {
+    setSearchUser(value);
+    console.log(`${searchUser}`);
+  };
 
   const handleLogOut = () => {
     setIsLogin(false);
@@ -135,6 +129,16 @@ function Banner() {
     localStorage.removeItem("username");
     localStorage.removeItem("ProfileURL");
   };
+  const handleSearch = () => {
+    window.location.href = "/resume/" + searchUser;
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+  const altImg = "img/GithubLogo.png";
 
   return (
     <div>
@@ -143,9 +147,6 @@ function Banner() {
         <Link to="/">
           <CnuLogoBlock />
         </Link>
-        {/* <button onClick={() => "location.href = /mypage"}>
-          <CnuLogoBlock />
-        </button> */}
         <Link to="/mypage">
           <MypageBtn>
             <LetterTemplate>MyPage</LetterTemplate>
@@ -158,15 +159,24 @@ function Banner() {
           </ResumeBtn>
         </Link>
 
-        <SearchBlock />
-        <SearchBtn>
+        <SearchBlock
+          type="text"
+          id="header-search"
+          placeholder="Search student name here"
+          name="resume"
+          value={searchUser}
+          onChange={handleChange}
+          onKeyPress={onKeyPress}
+        ></SearchBlock>
+        <SearchBtn onClick={() => handleSearch()}>
           <LetterTemplate>Search</LetterTemplate>
         </SearchBtn>
+        {/* <a href={searchUser}></a> */}
         <accountdiv>
           {isLogin ? (
             <logouttag onClick={() => handleLogOut()}>
               <IconBlock>
-                <img src={imgURL} width="30px" height="30px" />
+                <img src={imgURL} alt="Profile" width="30px" height="30px" />
               </IconBlock>
               <a href="/">
                 <LoginBtn>
@@ -177,7 +187,12 @@ function Banner() {
           ) : (
             <logintag>
               <IconBlock>
-                <img src="img/GithubLogo.png" width="30px" height="30px" />
+                <img
+                  src="https://user-images.githubusercontent.com/39149858/130719648-7ac10111-c896-4be4-a4fe-393a824c6c21.png"
+                  alt="Profile"
+                  width="30px"
+                  height="30px"
+                />
               </IconBlock>
               <a href={url}>
                 <LoginBtn>

@@ -31,7 +31,7 @@ async function getProfileObj(props) {
   var returnContent = "";
   const userReadme = await octokit
     .request("GET /repos/{owner}/{repo}/contents/{path}", {
-      owner: user,
+      owner: `${user}`,
       repo: `${user}`,
       path: "README.md",
     })
@@ -57,11 +57,11 @@ function ResumeProfile(props) {
 
   const renderer = new marked.Renderer();
   const con = marked(content, {
-    pedantic: true,
+    pedantic: false,
     gfm: true,
     breaks: true,
     sanitize: false,
-    smartLists: true,
+    smartLists: false,
     smartypants: true,
     xhtml: true,
   });

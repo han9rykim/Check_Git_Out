@@ -1,5 +1,4 @@
 import React from "react";
-import qs from "qs"; //parsing library
 
 function About() {
   return (

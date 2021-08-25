@@ -4,7 +4,6 @@ import Home from "./home/Home";
 import About from "./about/About";
 import Setting from "./setting/Setting";
 import Profiles from "./profile/Profiles";
-
 import Ranking from "./rank/Ranking";
 import Login from "./login/Login";
 import Resume from "./resume/Resume";
@@ -14,8 +13,6 @@ import Callback from "./oAuthPrac/Callback";
 import Username from "./login/Username";
 import Mypage from "./mypage/Mypage";
 import Errorpage from "./error/Errorpage";
-import ResumeMain from "./resume/ResumeMain";
-
 function RouteHome() {
   return (
     <div>
@@ -31,7 +28,7 @@ function RouteHome() {
       <Route path="/login/username" component={Username} />
       <Route path="/mypage" component={Mypage} />
       <Route path="/error" component={Errorpage} />
-      <Route path="/resume" component={ResumeMain} exact={true} />
+      <Route path="/resume" component={Resume} exact={true} />
       <Route path="/resume/:username" component={Resume} />
     </div>
   );
