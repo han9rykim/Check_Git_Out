@@ -11,10 +11,12 @@ const authRouter = require("./auth/auth");
 // const mysqlRouter = require("./db/mysql");
 const prRouter = require("./pullrequest/prRouter");
 const resumeRouter = require("./resume/resumeRouter");
+const commitRouter = require("./commit/commitLogRouter");
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/auth", authRouter);
+app.use("/commitlog", commitRouter);
 app.use("/pullrequest", prRouter);
 app.use("/studentinfo", resumeRouter);
 
