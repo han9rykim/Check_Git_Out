@@ -32,7 +32,7 @@ const CommitBlock = styled.div`
 const CommitLogBlock = styled.div`
   position: absolute;
   width: 665px;
-  height: 360px;
+  height: 390px;
   left: 1085px;
   top: 80px;
   margin: 0 auto;
@@ -123,6 +123,17 @@ const CheckBlock = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 `;
+const GetBlock = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 1360px;
+  top: 430px;
+
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
 
 async function getStuInfo() {
   const stuInfo = await axios.post(`http://168.188.129.200:8080/studentinfo`);
@@ -173,14 +184,20 @@ function Resume({ history, match }) {
   };
 
   const onClick = () => {
-    alert(`[${date}] [${title}] - ${description} `);
+    alert(`[${date}] [${title}] - ${description}`);
     setSendReq({
       date: "",
       title: "",
       description: "",
     });
-    axios.post(`http://168.188.129.200:8080/commitlog`, {
+    axios.post(`http://168.188.129.200:8080/addcommitlog`, {
       sendReq,
+    });
+  };
+
+  const onClickGet = () => {
+    axios.post(`http://168.188.129.200:8080/getcommitlog`, {
+      username,
     });
   };
 
@@ -226,6 +243,10 @@ function Resume({ history, match }) {
       />
       <button onClick={onClick}>
         <CheckBlock>확인</CheckBlock>
+      </button>
+
+      <button onClick={onClickGet}>
+        <GetBlock>가져오기</GetBlock>
       </button>
     </div>
   );
