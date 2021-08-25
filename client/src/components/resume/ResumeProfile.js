@@ -50,7 +50,7 @@ async function getProfileObj(props) {
 function ResumeProfile(props) {
   const [content, setContent] = useState("");
   const promise = getProfileObj(props.props);
-  // console.log(props);
+  // console.log(promise);
   promise.then((value) => {
     setContent(value);
   });

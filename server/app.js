@@ -10,9 +10,10 @@ const mysql = require("mysql");
 const authRouter = require("./auth/auth");
 // const mysqlRouter = require("./db/mysql");
 const prRouter = require("./pullrequest/prRouter");
-const resumeRouter = require("./resume/resumeRouter");
+// const resumeRouter = require("./resume/resumeRouter");
 const commitRouter = require("./commit/commitLogRouter");
 const getCommitRouter = require("./commit/getCommitLog");
+const makecommitRouter = require("./commit/makeCommit");
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -20,7 +21,7 @@ app.use("/auth", authRouter);
 app.use("/addcommitlog", commitRouter);
 app.use("/getcommitlog", getCommitRouter);
 app.use("/pullrequest", prRouter);
-app.use("/studentinfo", resumeRouter);
+app.use("/makecommit", makecommitRouter);
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);

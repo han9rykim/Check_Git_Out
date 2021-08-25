@@ -127,7 +127,7 @@ const GetBlock = styled.div`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1360px;
+  left: 1290px;
   top: 430px;
 
   background: rgba(22, 65, 148, 0.8);
@@ -135,34 +135,23 @@ const GetBlock = styled.div`
   border-radius: 10px;
 `;
 
-async function getStuInfo() {
-  const stuInfo = await axios.post(`http://168.188.129.200:8080/studentinfo`);
-  return stuInfo;
-}
+const CommitBtnBlock = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 1410px;
+  top: 430px;
+
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
 
 function Resume({ history, match }) {
   const { username } = match.params;
-  // const data = {
-  //   dblepart99: { name: "김현수" },
-  //   binaryKim99: { name: "김현수" },
-  //   HwangDongJun: { name: "황동준" },
-  // };
-  // const profile = data[username];
-  // console.log(profile);
-  // /*
-  // 쿼리문 날려서 실제로 있는 학생인지 찾기.
-  // 조건 처리 필요.
-  // */
 
-  // if (!profile) {
-  //   console.log("???");
-  //   return (
-  //     <div>
-  //       존재하지 않는 사용자입니다.
-  //       <button onClick={() => history.goBack()}>뒤로 가기</button>
-  //     </div>
-  //   );
-  // }
+  const [commitContent, setcommitContent] = useState("");
+
   const adminUser = localStorage.getItem("username");
   const [sendReq, setSendReq] = useState({
     date: "",
@@ -195,17 +184,41 @@ function Resume({ history, match }) {
     });
   };
 
-  const onClickGet = () => {
-    axios.post(`http://168.188.129.200:8080/getcommitlog`, {
-      username,
+  async function getProfileObj(props) {
+    var response;
+    try {
+      const username = props;
+      response = await axios.post(`http://168.188.129.200:8080/getcommitlog`, {
+        username, //학생이름.
+      });
+    } catch (err) {}
+
+    return response;
+  }
+
+  const GetClick = () => {
+    const promise = getProfileObj(username);
+    promise.then((result) => {
+      setcommitContent(result.data);
     });
   };
+
+  async function MakeCommit(props) {
+    const headers = { stuname: props, admin: localStorage.getItem("username") };
+    await axios.post(`http://168.188.129.200:8080/makecommit`, {
+      headers,
+    });
+  }
 
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
       onClick();
     }
   };
+  // const promise = getProfileObj(username);
+  // promise.then((result) => {
+  //   setcommitContent(result.data);
+  // });
 
   return (
     <div>
@@ -214,7 +227,7 @@ function Resume({ history, match }) {
       </ReadmeBackGroundBlock>
       <CommitLogBlock />
       <CommitLogTitle>Commit Log</CommitLogTitle>
-      <CommitLog />
+      <CommitLog>{commitContent}</CommitLog>
 
       <CommitBlock />
       <DateBlock
@@ -241,12 +254,16 @@ function Resume({ history, match }) {
         onChange={onChange}
         onKeyPress={onKeyPress}
       />
-      <button onClick={onClick}>
+      <button onClick={() => onClick()}>
         <CheckBlock>확인</CheckBlock>
       </button>
 
-      <button onClick={onClickGet}>
+      <button onClick={() => GetClick()}>
         <GetBlock>가져오기</GetBlock>
+      </button>
+
+      <button onClick={() => MakeCommit(username)}>
+        <CommitBtnBlock>Commit</CommitBtnBlock>
       </button>
     </div>
   );

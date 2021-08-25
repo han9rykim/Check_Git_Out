@@ -38,8 +38,6 @@ router.post("/", async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log("rows", rows);
-      // console.log("fields", fields);
       console.log(`"${content}" => has been added`);
     }
   });

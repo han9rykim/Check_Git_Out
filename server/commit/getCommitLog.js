@@ -8,48 +8,61 @@ var mysql = require("mysql");
 
 router.post("/", async (req, res) => {
   const student = req.body;
-  console.log(student.username);
-  const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    port: 3306,
-    password: "",
-    database: "gResume",
-  });
-  con.connect(function (err) {
-    if (err) throw err;
-    console.log("CommitLog router Connected");
-  });
-
-  // var sql =
-  //   "INSERT INTO commitlog(username, id, content, stu_username) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE content = (?)";
-  // var param = [sendReq.admin, id, content, sendReq.student, content];
-
-  //   var sql = "SELECT * FROM commitlog WHERE stu_username=VALUES ?";
-  //   const stu = "binaryKim99";
-  //   var param = [stu];
-
+  //   console.log(student.username);
   var sql = "SELECT * FROM commitlog WHERE stu_username=?";
   var params = [student.username];
-  con.query(sql, params, function (err, rows, fields) {
-    //두번째 인자에 배열로 된 값을 넣어줄 수 있다.
-    if (err) {
-      console.log(err);
-    } else {
-      for (var i = 0; i < rows.length; i++) {
-        console.log(
-          rows[i].username +
-            "가 작성한" +
-            rows[i].stu_username +
-            "의 커밋내용" +
-            rows[i].content
-        );
+  var sendContent = "";
+  var con;
+  try {
+    con = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      port: 3306,
+      password: "",
+      database: "gResume",
+    });
+    try {
+      await con.connect(function (err) {
+        if (err) throw err;
+        console.log("Get CommitLog router Connected");
+      });
+      try {
+        await con.query(sql, params, function (err, rows, fields) {
+          //두번째 인자에 배열로 된 값을 넣어줄 수 있다.
+          if (err) {
+            console.log(err);
+          } else {
+            //   sendContent = rows;
+            //   console.log(sendContent.content);
+            //   console.log("#");
+            for (var i = 0; i < rows.length; i++) {
+              sendContent +=
+                rows[i].username +
+                "교수님이 작성한 내용 - " +
+                rows[i].stu_username +
+                "학생의" +
+                rows[i].content +
+                "\n";
+            }
+            if (rows.length == 0) {
+              res.send("내용이 아직 없습니다.");
+            } else {
+              res.send(sendContent);
+            }
+            console.log(`???${sendContent}`);
+          }
+        });
+      } catch (err) {
+        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
-  });
-
+  } catch (err) {
+    console.log(err);
+  }
+  // res.end();
   con.end();
-  res.end();
 });
 
 module.exports = router;

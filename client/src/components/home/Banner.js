@@ -153,11 +153,11 @@ function Banner({ history }) {
           </MypageBtn>
         </Link>
 
-        <Link to="/resume">
+        {/* <Link to="/resume">
           <ResumeBtn>
             <LetterTemplate>Resume</LetterTemplate>
           </ResumeBtn>
-        </Link>
+        </Link> */}
 
         <SearchBlock
           type="text"
