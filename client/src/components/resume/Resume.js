@@ -1,20 +1,7 @@
-import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import {
-  Button,
-  Container,
-  Row,
-  Col,
-  Form,
-  FormControl,
-  FloatingLabel,
-} from "react-bootstrap";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import ResumeProfile from "./ResumeProfile";
-import { Octokit } from "@octokit/rest";
-import qs from "qs";
-import Username from "../login/Username";
 
 const ReadmeBackGroundBlock = styled.div`
   position: absolute;
@@ -114,7 +101,7 @@ const DateBlock = styled.input`
 const DescriptionBlock = styled.input`
   position: absolute;
   width: 605px;
-  height: 150px;
+  height: 200px;
   left: 1115px;
   top: 640px;
   background: white;
@@ -125,11 +112,11 @@ const DescriptionBlock = styled.input`
   background: #ffffff;
 `;
 
-const MergeBtnBlock = styled.div`
+const CheckBlock = styled.div`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1326px;
+  left: 1360px;
   top: 850px;
 
   background: rgba(22, 65, 148, 0.8);
@@ -144,21 +131,6 @@ async function getStuInfo() {
 
 function Resume({ history, match }) {
   const { username } = match.params;
-
-  const [date, setDate] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [sendReq, setSendReq] = useState("");
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-  const onChangeDescription = (e) => setDescription(e.target.value);
-  const onChangeDate = (e) => setDate(e.target.value);
-
-  useEffect(() => {
-    setSendReq(`[${date}] [${title}] - ${description} `);
-  }, [date, title, description]);
-
   // const data = {
   //   dblepart99: { name: "김현수" },
   //   binaryKim99: { name: "김현수" },
@@ -180,14 +152,29 @@ function Resume({ history, match }) {
   //     </div>
   //   );
   // }
+  const [sendReq, setSendReq] = useState({
+    date: "",
+    title: "",
+    description: "",
+  });
+
+  const { date, title, description } = sendReq;
+  const onChange = (e) => {
+    const nextsendReq = {
+      ...sendReq, // 기존의 sendReq 내용 복사
+      [e.target.name]: e.target.value,
+    };
+    setSendReq(nextsendReq);
+  };
 
   const onClick = () => {
     alert(`[${date}] [${title}] - ${description} `);
-
-    setTitle("");
-    setDescription("");
-    setDate("");
-    axios.post(`http://168.188.129.200:8080/pullrequest`, {
+    setSendReq({
+      date: "",
+      title: "",
+      description: "",
+    });
+    axios.post(`http://168.188.129.200:8080/commitlog`, {
       sendReq,
     });
   };
@@ -195,16 +182,6 @@ function Resume({ history, match }) {
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
       onClick();
-    }
-  };
-  const onKeyPressDate = (e) => {
-    if (e.key === "Enter") {
-      alert("description을 입력해주세요.");
-    }
-  };
-  const onKeyPressTitle = (e) => {
-    if (e.key === "Enter") {
-      alert("빈칸이 남아있습니다.");
     }
   };
 
@@ -223,8 +200,7 @@ function Resume({ history, match }) {
         name="date"
         placeholder="date"
         value={date}
-        onChange={onChangeDate}
-        onKeyPress={onKeyPressDate}
+        onChange={onChange}
       />
 
       <TitleBlock
@@ -232,8 +208,7 @@ function Resume({ history, match }) {
         name="title"
         placeholder="title"
         value={title}
-        onChange={onChangeTitle}
-        onKeyPress={onKeyPressTitle}
+        onChange={onChange}
       />
 
       <DescriptionBlock
@@ -241,11 +216,11 @@ function Resume({ history, match }) {
         name="description"
         placeholder="description"
         value={description}
-        onChange={onChangeDescription}
+        onChange={onChange}
         onKeyPress={onKeyPress}
       />
       <button onClick={onClick}>
-        <MergeBtnBlock>확인</MergeBtnBlock>
+        <CheckBlock>확인</CheckBlock>
       </button>
     </div>
   );

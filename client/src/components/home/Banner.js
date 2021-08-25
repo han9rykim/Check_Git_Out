@@ -79,7 +79,7 @@ const SearchBtn = styled.button`
   border-radius: 10px;
 `;
 
-const LoginBtn = styled.div`
+const LoginBtn = styled.button`
   position: absolute;
   width: 111px;
   height: 34px;
@@ -178,11 +178,11 @@ function Banner({ history }) {
               <IconBlock>
                 <img src={imgURL} alt="Profile" width="30px" height="30px" />
               </IconBlock>
-              <a href="/">
+              <Link to="/">
                 <LoginBtn>
                   <LetterTemplate>Logout</LetterTemplate>
                 </LoginBtn>
-              </a>
+              </Link>
             </logouttag>
           ) : (
             <logintag>
@@ -199,6 +199,7 @@ function Banner({ history }) {
                   <LetterTemplate>Login</LetterTemplate>
                 </LoginBtn>
               </a>
+              {/* <a href={url}></a> */}
             </logintag>
           )}
         </accountdiv>

@@ -32,7 +32,7 @@ async function getProfileObj(props) {
   const userReadme = await octokit
     .request("GET /repos/{owner}/{repo}/contents/{path}", {
       owner: `${user}`,
-      repo: `${user}`,
+      repo: `${user}Resume`,
       path: "README.md",
     })
     .catch((errorMessage, statusCode) => {
