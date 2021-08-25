@@ -204,7 +204,11 @@ function Resume({ history, match }) {
   };
 
   async function MakeCommit(props) {
-    const headers = { stuname: props, admin: localStorage.getItem("username") };
+    const headers = {
+      stuname: props,
+      admin: localStorage.getItem("username"),
+      token: localStorage.getItem("access_token"),
+    };
     await axios.post(`http://168.188.129.200:8080/makecommit`, {
       headers,
     });

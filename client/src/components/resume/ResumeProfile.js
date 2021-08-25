@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Octokit } from "@octokit/rest";
 import styled from "styled-components";
 import marked from "marked";
@@ -31,7 +31,7 @@ async function getProfileObj(props) {
   var returnContent = "";
   const userReadme = await octokit
     .request("GET /repos/{owner}/{repo}/contents/{path}", {
-      owner: `${user}`,
+      owner: `CNUCSE-RESUME`,
       repo: `${user}Resume`,
       path: "README.md",
     })
