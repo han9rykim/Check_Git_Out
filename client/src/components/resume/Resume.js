@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import ResumeProfile from "./ResumeProfile";
@@ -161,6 +161,8 @@ function Resume({ history, match }) {
     student: "",
   });
 
+  useEffect(() => {}, [sendReq]);
+
   const { date, title, description, admin } = sendReq;
   const onChange = (e) => {
     const nextsendReq = {
@@ -175,6 +177,7 @@ function Resume({ history, match }) {
   const onClick = () => {
     alert(`[${date}] [${title}] - ${description}`);
     setSendReq({
+      prof: adminUser,
       date: "",
       title: "",
       description: "",
@@ -212,7 +215,7 @@ function Resume({ history, match }) {
 
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
-      onClick();
+      // onClick();
     }
   };
   // const promise = getProfileObj(username);
@@ -247,7 +250,7 @@ function Resume({ history, match }) {
       />
 
       <DescriptionBlock
-        type="text"
+        type="textarea"
         name="description"
         placeholder="description"
         value={description}

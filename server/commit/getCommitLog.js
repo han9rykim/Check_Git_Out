@@ -1,10 +1,56 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
-const Octokit = require("octokit");
 var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
+
+const { Octokit } = require("@octokit/core");
+
+async function makeCommittoRepo(token, inputLine, student) {
+  try {
+    console.log("시발?");
+    const user = new Octokit({
+      auth: token,
+    });
+    try {
+      const response = await user.request(
+        "GET /repos/{owner}/{repo}/contents/{path}",
+        {
+          owner: "CNUCSE-RESUME",
+          repo: `${student}Resume`,
+          path: "README.md",
+        }
+      );
+
+      const beforeSHA = response.data.sha;
+      const before = Buffer.from(response.data.content, "base64").toString(
+        "utf8"
+      );
+      const content = Buffer.from(before.concat(inputLine), "utf8").toString(
+        "base64"
+      );
+      console.log(`response ${response}`);
+      try {
+        await user.request("PUT /repos/{owner}/{repo}/contents/{path}", {
+          owner: "CNUCSE-RESUME",
+          repo: `${student}Resume`,
+          path: "README.md",
+          content: content,
+          message: "changed your repo",
+          sha: beforeSHA,
+        });
+        console.log("made commit");
+      } catch (err) {
+        console.log(err);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 router.post("/", async (req, res) => {
   const student = req.body;
@@ -44,6 +90,7 @@ router.post("/", async (req, res) => {
                 rows[i].content +
                 "\n";
             }
+
             if (rows.length == 0) {
               res.send("내용이 아직 없습니다.");
             } else {
