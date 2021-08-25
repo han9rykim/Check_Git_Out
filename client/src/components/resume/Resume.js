@@ -152,17 +152,22 @@ function Resume({ history, match }) {
   //     </div>
   //   );
   // }
+  const adminUser = localStorage.getItem("username");
   const [sendReq, setSendReq] = useState({
     date: "",
     title: "",
     description: "",
+    admin: "",
+    student: "",
   });
 
-  const { date, title, description } = sendReq;
+  const { date, title, description, admin } = sendReq;
   const onChange = (e) => {
     const nextsendReq = {
       ...sendReq, // 기존의 sendReq 내용 복사
       [e.target.name]: e.target.value,
+      admin: adminUser,
+      student: username,
     };
     setSendReq(nextsendReq);
   };

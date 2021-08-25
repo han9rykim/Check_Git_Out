@@ -26,6 +26,24 @@ router.post("/", async (req, res) => {
     console.log("CommitLog router Connected");
   });
 
+  const id = `${sendReq.title}${sendReq.student}`;
+  const content = `[${sendReq.date}] [${sendReq.title}] - ${sendReq.description}`;
+  // console.log(content);
+  // console.log(id);
+  var sql =
+    "INSERT INTO commitlog(username, id, content, stu_username) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE content = (?)";
+  var param = [sendReq.admin, id, content, sendReq.student, content];
+
+  con.query(sql, param, function (err, rows, fields) {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log("rows", rows);
+      // console.log("fields", fields);
+      console.log(`"${content}" => has been added`);
+    }
+  });
+
   con.end();
   res.end();
 });
