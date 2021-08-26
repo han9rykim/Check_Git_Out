@@ -82,8 +82,20 @@ router.post("/", async (req, res) => {
           for (var i = 0; i < prof.length; i++) {
             var sql = "SELECT token FROM user WHERE username=?";
             var params = [prof[i]];
-            // console.log(prof[i]);
-            // console.log(content[i]);
+
+            await con.query(sql, params, async function (err, rows, fields) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(rows[0].token);
+                // await makeCommittoRepo(
+                //   rows[0].token,
+                //   content[i],
+                //   response.headers.stuname
+                // );
+              }
+            });
+
             await makeCommittoRepo(
               response.headers.token,
               content[i],
