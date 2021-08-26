@@ -38,7 +38,7 @@ async function getProfileObj(props) {
     .catch((errorMessage, statusCode) => {
       // This is never hit for a server 404 error
       haveRepo = false;
-      returnContent = "# You Dont Have Repository with ReadMe";
+      returnContent = "# This Student Doesn't Have Resume";
       // console.log(errorMessage, statusCode);
     });
   if (haveRepo) {
