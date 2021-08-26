@@ -11,17 +11,22 @@ const ContentBlock = styled.div`
   text-align: left;
   color: white;
   width: 870px;
+  top: 60px;
   background: rgba(22, 65, 148, 0.8);
-  height: 450px;
-  left: 500px;
-  top: 140px;
-  border-radius: 10px;
+  height: 470px;
+  border-radius: 30px;
+  margin: 0 auto;
+  margin-right: 500px;
+  margin-left: 0 auto;
   padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 30px;
 `;
 
 const Block = styled.div`
   position: relative;
+
   top: 100px;
   border-radius: 10px;
 `;
@@ -53,13 +58,13 @@ Git의 Commit과 Pull Request, Merge를 활용한 방식으로 학생의 이력�
         <img src="img/GithubLogo.png" />
         <br />
         <img src="img/logo_CNU.png" />
+        <ContentBlock
+          id="preview"
+          dangerouslySetInnerHTML={{
+            __html: marked(con, { render: renderer }),
+          }}
+        />
       </Block>
-      <ContentBlock
-        id="preview"
-        dangerouslySetInnerHTML={{
-          __html: marked(con, { render: renderer }),
-        }}
-      />
     </div>
   );
 }

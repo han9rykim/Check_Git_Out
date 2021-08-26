@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
-const Octokit = require("octokit");
 var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
@@ -44,6 +43,7 @@ router.post("/", async (req, res) => {
                 rows[i].content +
                 "\n";
             }
+
             if (rows.length == 0) {
               res.send("내용이 아직 없습니다.");
             } else {

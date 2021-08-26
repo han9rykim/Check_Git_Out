@@ -1,6 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 import ResumeProfile from "../resume/ResumeProfile";
+import axios from "axios";
+import React, { useState } from "react";
+import marked from "marked";
 
 const ReadmeBackGroundBlock = styled.div`
   position: absolute;
@@ -50,6 +52,17 @@ const CommitLogTitle = styled.div`
 
 const CommitLog = styled.div`
   position: absolute;
+  ont-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  overflow: scroll;
+  font-size: 20px;
+  line-height: 35px;
+  color: #ffffff;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   width: 606px;
   height: 680px;
   left: 1115px;
@@ -71,10 +84,62 @@ const MergeBtn = styled.button`
 `;
 
 function Mypage() {
+  async function getProfileObj() {
+    var response;
+    try {
+      const username = localStorage.getItem("username");
+      response = await axios.post(`http://168.188.129.200:8080/getcommitlog`, {
+        username, //학생이름.
+      });
+    } catch (err) {}
+
+    return response;
+  }
+
+  async function checkPR(props) {
+    const stuname = props;
+    var response;
+    try {
+      response = await axios.post(`http://168.188.129.200:8080/checkpr`, {
+        stuname,
+      });
+    } catch (err) {}
+    return response;
+  }
+
+  const GetClick = (props) => {
+    const promise = checkPR(props);
+    console.log(promise);
+    promise.then((result) => {
+      if (result.data.changedContent == null) {
+        setcommitContent("Pull Request가 없습니다.");
+      } else {
+        setcommitContent(result.data.changedContent);
+      }
+
+      // // console.log("1");
+      // console.log(result.data.number);
+    });
+    // console.log("2");
+  };
+
+  const [commitContent, setcommitContent] = useState("");
   var username = "";
   if (localStorage.getItem("username")) {
     username = localStorage.getItem("username");
   }
+
+  const renderer = new marked.Renderer();
+  const con = marked(commitContent, {
+    pedantic: false,
+    gfm: true,
+    breaks: true,
+    sanitize: false,
+    smartLists: false,
+    smartypants: true,
+    xhtml: true,
+  });
+
   return (
     <div>
       <ReadmeBackGroundBlock>
@@ -82,8 +147,12 @@ function Mypage() {
       </ReadmeBackGroundBlock>
       <CommitLogBlock />
       <CommitLogTitle>Commit Log</CommitLogTitle>
-      <CommitLog />
-      <MergeBtn>확인</MergeBtn>
+      <CommitLog
+        id="preview"
+        dangerouslySetInnerHTML={{ __html: marked(con, { render: renderer }) }}
+      />
+
+      <MergeBtn onClick={() => GetClick(username)}>PR확인하기</MergeBtn>
     </div>
   );
 }
