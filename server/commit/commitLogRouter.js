@@ -13,7 +13,8 @@ var mysql = require("mysql");
 
 router.post("/", async (req, res) => {
   const { sendReq } = req.body;
-  console.log(sendReq);
+  console.log(`${sendReq}`);
+
   const con = mysql.createConnection({
     host: "localhost",
     user: "root",

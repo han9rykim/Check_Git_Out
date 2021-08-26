@@ -16,6 +16,7 @@ const getCommitRouter = require("./commit/getCommitLog");
 const makecommitRouter = require("./commit/makeCommit");
 const deleteCommitRouter = require("./commit/deleteCommit");
 const checkPRRouter = require("./pullrequest/checkPR");
+const mergeRouter = require("./merge/merge");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ app.use("/pullrequest", prRouter);
 app.use("/makecommit", makecommitRouter);
 app.use("/deletecommit", deleteCommitRouter);
 app.use("/checkPR", checkPRRouter);
+app.use("/merge", mergeRouter);
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);

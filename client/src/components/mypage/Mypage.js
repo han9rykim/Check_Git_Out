@@ -72,11 +72,21 @@ const CommitLog = styled.div`
   border-radius: 10px;
 `;
 
+const CheckPRBtn = styled.button`
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 1300px;
+  top: 870px;
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
 const MergeBtn = styled.button`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1360px;
+  left: 1420px;
   top: 870px;
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -116,12 +126,17 @@ function Mypage() {
       } else {
         setcommitContent(result.data.changedContent);
       }
-
-      // // console.log("1");
-      // console.log(result.data.number);
     });
-    // console.log("2");
   };
+
+  async function GetMergeClick(props) {
+    const stuname = props;
+    try {
+      await axios.post(`http://168.188.129.200:8080/merge`, {
+        stuname,
+      });
+    } catch (err) {}
+  }
 
   const [commitContent, setcommitContent] = useState("");
   var username = "";
@@ -152,7 +167,8 @@ function Mypage() {
         dangerouslySetInnerHTML={{ __html: marked(con, { render: renderer }) }}
       />
 
-      <MergeBtn onClick={() => GetClick(username)}>PR확인하기</MergeBtn>
+      <CheckPRBtn onClick={() => GetClick(username)}>PR확인하기</CheckPRBtn>
+      <MergeBtn onClick={() => GetMergeClick(username)}>Merge하기</MergeBtn>
     </div>
   );
 }

@@ -46,6 +46,7 @@ router.post("/", async (req, res) => {
     } catch (err) {
       console.log(err);
     }
+    console.log("PR 성공적");
 
     con.end();
   } catch (err) {

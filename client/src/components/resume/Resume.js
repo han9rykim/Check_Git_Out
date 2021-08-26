@@ -179,6 +179,7 @@ const MakePRBlock = styled.div`
 `;
 
 function Resume({ history, match }) {
+  const token = localStorage.getItem("access_token");
   const { username } = match.params;
 
   const [commitContent, setcommitContent] = useState("");
@@ -190,7 +191,7 @@ function Resume({ history, match }) {
     description: "",
     admin: "",
     student: "",
-    token: localStorage.getItem("access_token"),
+    token: token,
   });
 
   const { date, title, description, admin } = sendReq;
@@ -210,6 +211,7 @@ function Resume({ history, match }) {
       date: "",
       title: "",
       description: "",
+      token: token,
     });
     axios.post(`http://168.188.129.200:8080/addcommitlog`, {
       sendReq,
@@ -241,7 +243,6 @@ function Resume({ history, match }) {
     const headers = {
       stuname: props,
       admin: localStorage.getItem("username"),
-      token: localStorage.getItem("access_token"),
     };
     await axios.post(`http://168.188.129.200:8080/makecommit`, {
       headers,
