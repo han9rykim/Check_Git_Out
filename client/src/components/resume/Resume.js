@@ -127,7 +127,7 @@ const GetBlock = styled.div`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1290px;
+  left: 1250px;
   top: 430px;
 
   background: rgba(22, 65, 148, 0.8);
@@ -139,14 +139,24 @@ const CommitBtnBlock = styled.div`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1410px;
+  left: 1380px;
   top: 430px;
 
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 `;
+const DeleteBtnBlock = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 1510px;
+  top: 430px;
 
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
 function Resume({ history, match }) {
   const { username } = match.params;
 
@@ -159,6 +169,7 @@ function Resume({ history, match }) {
     description: "",
     admin: "",
     student: "",
+    token: localStorage.getItem("access_token"),
   });
 
   const { date, title, description, admin } = sendReq;
@@ -200,7 +211,9 @@ function Resume({ history, match }) {
     const promise = getProfileObj(username);
     promise.then((result) => {
       setcommitContent(result.data);
+      console.log("1");
     });
+    console.log("2");
   };
 
   async function MakeCommit(props) {
@@ -212,6 +225,19 @@ function Resume({ history, match }) {
     await axios.post(`http://168.188.129.200:8080/makecommit`, {
       headers,
     });
+  }
+  async function DeleteCommit(props) {
+    const headers = {
+      stuname: props,
+    };
+    await axios.post(`http://168.188.129.200:8080/deletecommit`, {
+      headers,
+    });
+    // const promise = getProfileObj(username);
+    // promise.then((result) => {
+    //   setcommitContent(result.data);
+    //   console.log("1");
+    // });
   }
 
   const onKeyPress = (e) => {
@@ -268,6 +294,9 @@ function Resume({ history, match }) {
 
       <button onClick={() => MakeCommit(username)}>
         <CommitBtnBlock>Commit</CommitBtnBlock>
+      </button>
+      <button onClick={() => DeleteCommit(username)}>
+        <DeleteBtnBlock>Delete Log</DeleteBtnBlock>
       </button>
     </div>
   );
