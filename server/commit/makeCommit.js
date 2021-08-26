@@ -7,35 +7,41 @@ var mysql = require("mysql");
 const { Octokit } = require("@octokit/core");
 
 async function makeCommittoRepo(token, inputLine, student) {
-  console.log("시발?");
+  console.log("Make Commit 함수 실행");
   const user = new Octokit({
     auth: token,
   });
-  const response = await user.request(
-    "GET /repos/{owner}/{repo}/contents/{path}",
-    {
-      owner: "CNUCSE-RESUME",
-      repo: `${student}Resume`,
-      path: "README.md",
-    }
-  );
-
-  const beforeSHA = response.data.sha;
-  const before = Buffer.from(response.data.content, "base64").toString("utf8");
-  const content = Buffer.from(before.concat(inputLine), "utf8").toString(
-    "base64"
-  );
-  console.log(`response ${response}`);
   try {
-    await user.request("PUT /repos/{owner}/{repo}/contents/{path}", {
-      owner: "CNUCSE-RESUME",
-      repo: `${student}Resume`,
-      path: "README.md",
-      content: content,
-      message: "changed your repo",
-      sha: beforeSHA,
-    });
-    console.log("made commit");
+    const response = await user.request(
+      "GET /repos/{owner}/{repo}/contents/{path}",
+      {
+        owner: "CNUCSE-RESUME",
+        repo: `${student}Resume`,
+        path: "README.md",
+      }
+    );
+
+    const beforeSHA = response.data.sha;
+    const before = Buffer.from(response.data.content, "base64").toString(
+      "utf8"
+    );
+    const content = Buffer.from(before.concat(inputLine), "utf8").toString(
+      "base64"
+    );
+    console.log(`response ${response}`);
+    try {
+      await user.request("PUT /repos/{owner}/{repo}/contents/{path}", {
+        owner: "CNUCSE-RESUME",
+        repo: `${student}Resume`,
+        path: "README.md",
+        content: content,
+        message: "changed your repo",
+        sha: beforeSHA,
+      });
+      console.log("made commit");
+    } catch (err) {
+      console.log(err);
+    }
   } catch (err) {
     console.log(err);
   }
@@ -62,7 +68,7 @@ router.post("/", async (req, res) => {
     });
 
     try {
-      await con.query(sql, params, function (err, rows, fields) {
+      await con.query(sql, params, async function (err, rows, fields) {
         if (err) {
           console.log(err);
         } else {
@@ -78,7 +84,7 @@ router.post("/", async (req, res) => {
             var params = [prof[i]];
             // console.log(prof[i]);
             // console.log(content[i]);
-            makeCommittoRepo(
+            await makeCommittoRepo(
               response.headers.token,
               content[i],
               response.headers.stuname
