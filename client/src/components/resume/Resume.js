@@ -143,6 +143,7 @@ const GetBlock = styled.div`
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  color: white;
 `;
 
 const CommitBtnBlock = styled.div`
@@ -155,6 +156,7 @@ const CommitBtnBlock = styled.div`
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  color: white;
 `;
 const DeleteBtnBlock = styled.div`
   position: absolute;
@@ -165,6 +167,20 @@ const DeleteBtnBlock = styled.div`
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  color: white;
+`;
+
+const DeleteAllBlock = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 1375px;
+  top: 375px;
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  background: #ffffff;
 `;
 
 const MakePRBlock = styled.div`
@@ -176,6 +192,7 @@ const MakePRBlock = styled.div`
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  color: white;
 `;
 
 function Resume({ history, match }) {
@@ -258,6 +275,16 @@ function Resume({ history, match }) {
     });
   }
 
+  async function DeleteAll(props) {
+    const headers = {
+      stuname: props,
+      prof: adminUser,
+    };
+    await axios.post(`http://168.188.129.200:8080/deleteall`, {
+      headers,
+    });
+  }
+
   async function MakePR(props) {
     const stuname = props;
     const prof = localStorage.getItem("username");
@@ -316,7 +343,7 @@ function Resume({ history, match }) {
       </button>
 
       <button onClick={() => GetClick()}>
-        <GetBlock>가져오기</GetBlock>
+        <GetBlock>새로고침</GetBlock>
       </button>
 
       <button onClick={() => MakeCommit(username)}>
@@ -327,6 +354,9 @@ function Resume({ history, match }) {
       </button>
       <button onClick={() => MakePR(username)}>
         <MakePRBlock>Make PR</MakePRBlock>
+      </button>
+      <button onClick={() => DeleteAll(username)}>
+        <DeleteAllBlock>Delete ALL</DeleteAllBlock>
       </button>
     </div>
   );

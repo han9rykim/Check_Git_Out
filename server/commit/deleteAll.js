@@ -15,13 +15,13 @@ router.post("/", async (req, res) => {
   });
   const response = req.body;
   console.log(response);
-  var sql = "DELETE FROM commitlog WHERE stu_username=? and username=?";
-  var params = [response.headers.stuname, response.headers.prof];
+  var sql = "DELETE FROM commitlog WHERE stu_username=?";
+  var params = [response.headers.stuname];
   await con.query(sql, params, function (err, rows, fields) {
     if (err) {
       console.log(err);
     } else {
-      console.log(`Deleted Only Yours`);
+      console.log("Deleted ALL");
     }
   });
   con.end();

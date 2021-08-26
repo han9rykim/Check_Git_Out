@@ -15,6 +15,7 @@ const commitRouter = require("./commit/commitLogRouter");
 const getCommitRouter = require("./commit/getCommitLog");
 const makecommitRouter = require("./commit/makeCommit");
 const deleteCommitRouter = require("./commit/deleteCommit");
+const deleteAllRouter = require("./commit/deleteAll");
 const checkPRRouter = require("./pullrequest/checkPR");
 const mergeRouter = require("./merge/merge");
 
@@ -27,6 +28,7 @@ app.use("/getcommitlog", getCommitRouter);
 app.use("/pullrequest", prRouter);
 app.use("/makecommit", makecommitRouter);
 app.use("/deletecommit", deleteCommitRouter);
+app.use("/deleteall", deleteAllRouter);
 app.use("/checkPR", checkPRRouter);
 app.use("/merge", mergeRouter);
 
