@@ -87,6 +87,15 @@ router.post("/", async (req, res) => {
             );
           }
         }
+        // var sql2 = "DELETE FROM commitlog WHERE stu_username=?";
+        // var params2 = [response.headers.stuname];
+        // await con.query(sql2, params2, function (err, rows, fields) {
+        //   if (err) {
+        //     console.log(err);
+        //   } else {
+        //     console.log("Deleted");
+        //   }
+        // });
       });
     } catch (err) {
       console.log(err);

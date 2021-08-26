@@ -68,6 +68,16 @@ const CommitLog = styled.div`
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 35px;
+  color: #ffffff;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
 const TitleBlock = styled.input`
@@ -127,7 +137,7 @@ const GetBlock = styled.div`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1250px;
+  left: 1210px;
   top: 430px;
 
   background: rgba(22, 65, 148, 0.8);
@@ -139,7 +149,7 @@ const CommitBtnBlock = styled.div`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1380px;
+  left: 1320px;
   top: 430px;
 
   background: rgba(22, 65, 148, 0.8);
@@ -150,13 +160,24 @@ const DeleteBtnBlock = styled.div`
   position: absolute;
   width: 100px;
   height: 30px;
-  left: 1510px;
+  left: 1430px;
   top: 430px;
-
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 `;
+
+const MakePRBlock = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 1540px;
+  top: 430px;
+  background: rgba(22, 65, 148, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
+
 function Resume({ history, match }) {
   const { username } = match.params;
 
@@ -233,11 +254,15 @@ function Resume({ history, match }) {
     await axios.post(`http://168.188.129.200:8080/deletecommit`, {
       headers,
     });
-    // const promise = getProfileObj(username);
-    // promise.then((result) => {
-    //   setcommitContent(result.data);
-    //   console.log("1");
-    // });
+  }
+
+  async function MakePR(props) {
+    const stuname = props;
+    const prof = localStorage.getItem("username");
+    await axios.post(`http://168.188.129.200:8080/pullrequest`, {
+      stuname,
+      prof,
+    });
   }
 
   const onKeyPress = (e) => {
@@ -297,6 +322,9 @@ function Resume({ history, match }) {
       </button>
       <button onClick={() => DeleteCommit(username)}>
         <DeleteBtnBlock>Delete Log</DeleteBtnBlock>
+      </button>
+      <button onClick={() => MakePR(username)}>
+        <MakePRBlock>Make PR</MakePRBlock>
       </button>
     </div>
   );
