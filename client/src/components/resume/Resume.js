@@ -251,6 +251,7 @@ function Resume({ history, match }) {
   async function DeleteCommit(props) {
     const headers = {
       stuname: props,
+      prof: adminUser,
     };
     await axios.post(`http://168.188.129.200:8080/deletecommit`, {
       headers,
