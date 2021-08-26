@@ -31,8 +31,15 @@ router.post("/", async (req, res) => {
   // console.log(content);
   // console.log(id);
   var sql =
-    "INSERT INTO commitlog(username, id, content, stu_username) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE content = (?)";
-  var param = [sendReq.admin, id, content, sendReq.student, content];
+    "INSERT INTO commitlog(username, id, content, stu_username, token) VALUES(?,?,?,?,?) ON DUPLICATE KEY UPDATE content = (?)";
+  var param = [
+    sendReq.admin,
+    id,
+    content,
+    sendReq.student,
+    sendReq.token,
+    content,
+  ];
 
   con.query(sql, param, function (err, rows, fields) {
     if (err) {

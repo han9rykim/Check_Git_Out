@@ -49,8 +49,8 @@ async function makeCommittoRepo(token, inputLine, student) {
 
 router.post("/", async (req, res) => {
   const response = req.body;
-  var sql = "SELECT * FROM commitlog WHERE stu_username=?";
-  var params = [response.headers.stuname];
+  // var sql = "SELECT * FROM commitlog WHERE stu_username=?";
+  // var params = [response.headers.stuname];
   var prof = [];
   var content = [];
 
@@ -68,6 +68,8 @@ router.post("/", async (req, res) => {
     });
 
     try {
+      var sql = "SELECT * FROM commitlog WHERE stu_username=?";
+      var params = [response.headers.stuname];
       await con.query(sql, params, async function (err, rows, fields) {
         if (err) {
           console.log(err);
@@ -78,27 +80,9 @@ router.post("/", async (req, res) => {
             }
             prof.push(rows[i].username);
             content.push(rows[i].content);
-          }
-          for (var i = 0; i < prof.length; i++) {
-            var sql = "SELECT token FROM user WHERE username=?";
-            var params = [prof[i]];
-
-            await con.query(sql, params, async function (err, rows, fields) {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(rows[0].token);
-                // await makeCommittoRepo(
-                //   rows[0].token,
-                //   content[i],
-                //   response.headers.stuname
-                // );
-              }
-            });
-
             await makeCommittoRepo(
-              response.headers.token,
-              content[i],
+              rows[i].token,
+              rows[i].content,
               response.headers.stuname
             );
           }
