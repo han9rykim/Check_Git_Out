@@ -12,30 +12,31 @@ const LetterTemplate = styled.div`
 `;
 
 const BannerBlock = styled.div`
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 50px;
-  left: 0px;
   top: 0px;
 
   background: #c4c4c4;
 `;
 
 const CnuLogoBlock = styled.div`
-  position: absolute;
+  position: relative;
   width: 180px;
   height: 34px;
-  left: 11px;
+  float: left;
+  margin-left: 10px;
   top: 8px;
   background: url("https://user-images.githubusercontent.com/39149858/130719419-5fa0003e-b3e1-4743-bc08-34e3fe735028.png");
   background-size: 100%;
 `;
 //border-color: #c4c4c4;
 const MypageBtn = styled.button`
-  position: absolute;
+  position: relative;
   width: 111px;
   height: 34px;
-  left: 223px;
+  margin-left: 10px;
+  float: left;
   top: 8px;
 
   background: rgba(22, 65, 148, 0.8);
@@ -56,35 +57,36 @@ const ResumeBtn = styled.button`
 `;
 
 const SearchBlock = styled.input`
-  position: absolute;
+  position: relative;
   width: 321px;
   height: 34px;
-  left: 729px;
   top: 9px;
-
+  margin: 0 auto;
+  margin-right: 10px;
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 `;
 
 const SearchBtn = styled.button`
-  position: absolute;
+  position: relative;
   width: 111px;
   height: 34px;
-  left: 1069px;
   top: 9px;
-
+  margin: 0 auto;
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 `;
 
 const LoginBtn = styled.button`
-  position: absolute;
+  position: relative;
   width: 111px;
   height: 34px;
-  left: 1550px;
   top: 9px;
+  margin: 0 auto;
+  float: right;
+  margin-right: 10px;
 
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -92,10 +94,12 @@ const LoginBtn = styled.button`
 `;
 
 const IconBlock = styled.div`
-  position: absolute;
+  position: relative;
   width: 35px;
   height: 35px;
-  left: 1510px;
+  margin: 0 auto;
+  margin-right: 10px;
+  float: right;
   top: 8px;
 `;
 
@@ -175,17 +179,22 @@ function Banner({ history }) {
         <accountdiv>
           {isLogin ? (
             <logouttag onClick={() => handleLogOut()}>
-              <IconBlock>
-                <img src={imgURL} alt="Profile" width="30px" height="30px" />
-              </IconBlock>
               <Link to="/">
                 <LoginBtn>
                   <LetterTemplate>Logout</LetterTemplate>
                 </LoginBtn>
               </Link>
+              <IconBlock>
+                <img src={imgURL} alt="Profile" width="30px" height="30px" />
+              </IconBlock>
             </logouttag>
           ) : (
             <logintag>
+              <a href={url}>
+                <LoginBtn>
+                  <LetterTemplate>Login</LetterTemplate>
+                </LoginBtn>
+              </a>
               <IconBlock>
                 <img
                   src="https://user-images.githubusercontent.com/39149858/130719648-7ac10111-c896-4be4-a4fe-393a824c6c21.png"
@@ -194,11 +203,6 @@ function Banner({ history }) {
                   height="30px"
                 />
               </IconBlock>
-              <a href={url}>
-                <LoginBtn>
-                  <LetterTemplate>Login</LetterTemplate>
-                </LoginBtn>
-              </a>
               {/* <a href={url}></a> */}
             </logintag>
           )}

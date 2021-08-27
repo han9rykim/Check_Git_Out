@@ -3,6 +3,7 @@ import ResumeProfile from "../resume/ResumeProfile";
 import axios from "axios";
 import React, { useState } from "react";
 import marked from "marked";
+import MypageProf from "../resume/MypageProf";
 
 const ReadmeBackGroundBlock = styled.div`
   position: absolute;
@@ -158,7 +159,7 @@ function Mypage() {
   return (
     <div>
       <ReadmeBackGroundBlock>
-        <ResumeProfile props={username} />
+        <MypageProf props={username} />
       </ReadmeBackGroundBlock>
       <CommitLogBlock />
       <CommitLogTitle>Commit Log</CommitLogTitle>

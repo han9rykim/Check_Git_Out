@@ -122,18 +122,18 @@ const DescriptionBlock = styled.input`
   background: #ffffff;
 `;
 
-const CheckBlock = styled.div`
+const CheckBlock = styled.button`
   position: absolute;
   width: 100px;
   height: 30px;
   left: 1360px;
   top: 850px;
-
+  color: white;
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 `;
-const GetBlock = styled.div`
+const GetBlock = styled.button`
   position: absolute;
   width: 100px;
   height: 30px;
@@ -146,7 +146,7 @@ const GetBlock = styled.div`
   color: white;
 `;
 
-const CommitBtnBlock = styled.div`
+const CommitBtnBlock = styled.button`
   position: absolute;
   width: 100px;
   height: 30px;
@@ -158,7 +158,7 @@ const CommitBtnBlock = styled.div`
   border-radius: 10px;
   color: white;
 `;
-const DeleteBtnBlock = styled.div`
+const DeleteBtnBlock = styled.button`
   position: absolute;
   width: 100px;
   height: 30px;
@@ -170,7 +170,7 @@ const DeleteBtnBlock = styled.div`
   color: white;
 `;
 
-const DeleteAllBlock = styled.div`
+const DeleteAllBlock = styled.button`
   position: absolute;
   width: 100px;
   height: 30px;
@@ -183,7 +183,7 @@ const DeleteAllBlock = styled.div`
   background: #ffffff;
 `;
 
-const MakePRBlock = styled.div`
+const MakePRBlock = styled.button`
   position: absolute;
   width: 100px;
   height: 30px;
@@ -338,26 +338,24 @@ function Resume({ history, match }) {
         onChange={onChange}
         onKeyPress={onKeyPress}
       />
-      <button onClick={() => onClick()}>
-        <CheckBlock>확인</CheckBlock>
-      </button>
+      <div>
+        <CheckBlock onClick={() => onClick()}>확인</CheckBlock>
 
-      <button onClick={() => GetClick()}>
-        <GetBlock>새로고침</GetBlock>
-      </button>
+        <GetBlock onClick={() => GetClick()}>새로고침</GetBlock>
 
-      <button onClick={() => MakeCommit(username)}>
-        <CommitBtnBlock>Commit</CommitBtnBlock>
-      </button>
-      <button onClick={() => DeleteCommit(username)}>
-        <DeleteBtnBlock>Delete Log</DeleteBtnBlock>
-      </button>
-      <button onClick={() => MakePR(username)}>
-        <MakePRBlock>Make PR</MakePRBlock>
-      </button>
-      <button onClick={() => DeleteAll(username)}>
-        <DeleteAllBlock>Delete ALL</DeleteAllBlock>
-      </button>
+        <CommitBtnBlock onClick={() => MakeCommit(username)}>
+          Commit
+        </CommitBtnBlock>
+        <DeleteBtnBlock onClick={() => DeleteCommit(username)}>
+          Delete Log
+        </DeleteBtnBlock>
+
+        <MakePRBlock onClick={() => MakePR(username)}>Make PR</MakePRBlock>
+
+        <DeleteAllBlock onClick={() => DeleteAll(username)}>
+          Delete ALL
+        </DeleteAllBlock>
+      </div>
     </div>
   );
 }

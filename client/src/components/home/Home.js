@@ -16,7 +16,6 @@ const ContentBlock = styled.div`
   height: 470px;
   border-radius: 30px;
   margin: 0 auto;
-
   padding-right: 30px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -25,7 +24,7 @@ const ContentBlock = styled.div`
 
 const Block = styled.div`
   position: relative;
-  top: 100px;
+  top: 40px;
   border-radius: 10px;
 `;
 

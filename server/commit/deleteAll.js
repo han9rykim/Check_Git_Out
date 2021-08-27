@@ -24,6 +24,7 @@ router.post("/", async (req, res) => {
       console.log("Deleted ALL");
     }
   });
+
   con.end();
 });
 
