@@ -1,1 +1,3 @@
-# Automatic_Github_Resume
+# Check_Git_Out
+
+http://checkgitout.com
