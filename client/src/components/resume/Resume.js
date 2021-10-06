@@ -261,9 +261,11 @@ function Resume({ history, match }) {
       stuname: props,
       admin: localStorage.getItem("username"),
     };
+    console.log("전송 시작");
     await axios.post(`http://168.188.129.200:8080/makecommit`, {
       headers,
     });
+    console.log("전송 완료");
   }
   async function DeleteCommit(props) {
     const headers = {

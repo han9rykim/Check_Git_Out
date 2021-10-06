@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Octokit } from "@octokit/rest";
 import styled from "styled-components";
 import marked from "marked";
+import { Button } from "bootstrap";
 
 const Title = styled.div`
   font-size: 1.2em;

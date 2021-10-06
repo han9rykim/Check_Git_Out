@@ -167,7 +167,6 @@ function Mypage() {
         id="preview"
         dangerouslySetInnerHTML={{ __html: marked(con, { render: renderer }) }}
       />
-
       <CheckPRBtn onClick={() => GetClick(username)}>PR확인하기</CheckPRBtn>
       <MergeBtn onClick={() => GetMergeClick(username)}>Merge하기</MergeBtn>
     </div>

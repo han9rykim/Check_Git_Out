@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
   });
 
   const id = `${sendReq.title}${sendReq.student}`;
-  const content = `[${sendReq.date}] [${sendReq.title}] - ${sendReq.description}`;
+  const content = `<br/>  [${sendReq.date}] [${sendReq.title}] - ${sendReq.description}`;
   // console.log(content);
   // console.log(id);
   var sql =
