@@ -51,6 +51,7 @@ router.post("/", async (req, res) => {
   });
 
   con.end();
+  return 200;
 });
 
 module.exports = router;

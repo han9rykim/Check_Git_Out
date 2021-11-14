@@ -213,6 +213,7 @@ function Resume({ history, match }) {
 
   const { date, title, description, admin } = sendReq;
   const onChange = (e) => {
+    e.preventDefault();
     const nextsendReq = {
       ...sendReq, // 기존의 sendReq 내용 복사
       [e.target.name]: e.target.value,
@@ -222,7 +223,9 @@ function Resume({ history, match }) {
     setSendReq(nextsendReq);
   };
 
-  const onClick = () => {
+  const addCommitLog = () => {
+    // e.preventDefault();
+    console.log("확이버튼");
     alert(`[${date}] [${title}] - ${description}`);
     setSendReq({
       date: "",
@@ -247,13 +250,14 @@ function Resume({ history, match }) {
     return response;
   }
 
-  const GetClick = () => {
-    const promise = getProfileObj(username);
-    promise.then((result) => {
-      setcommitContent(result.data);
-      console.log("1");
-    });
-    console.log("2");
+  const GetClick = (e) => {
+    axios
+      .post(`http://168.188.129.200:8080/getcommitlog`, {
+        username, //학생이름.
+      })
+      .then((response) => {
+        setcommitContent(response.data);
+      });
   };
 
   async function MakeCommit(props) {
@@ -296,11 +300,11 @@ function Resume({ history, match }) {
     });
   }
 
-  const onKeyPress = (e) => {
-    if (e.key === "Enter") {
-      onClick();
-    }
-  };
+  // const onKeyPress = (e) => {
+  //   if (e.key === "Enter") {
+  //     onClick();
+  //   }
+  // };
   // const promise = getProfileObj(username);
   // promise.then((result) => {
   //   setcommitContent(result.data);
@@ -338,23 +342,61 @@ function Resume({ history, match }) {
         placeholder="description"
         value={description}
         onChange={onChange}
-        onKeyPress={onKeyPress}
+        // onKeyPress={onKeyPress}
       />
       <div>
-        <CheckBlock onClick={() => onClick()}>확인</CheckBlock>
+        <CheckBlock
+          onClick={(e) => {
+            e.preventDefault();
+            addCommitLog();
+          }}
+        >
+          확인
+        </CheckBlock>
 
-        <GetBlock onClick={() => GetClick()}>새로고침</GetBlock>
+        <GetBlock
+          // onClick={(e) => {
+          //   e.preventDefault();
+          //   GetClick();
+          // }}
+          onClick={GetClick}
+        >
+          새로고침
+        </GetBlock>
 
-        <CommitBtnBlock onClick={() => MakeCommit(username)}>
+        <CommitBtnBlock
+          onClick={(e) => {
+            e.preventDefault();
+            MakeCommit(username);
+          }}
+          // onClick={MakeCommit(username)}
+        >
           Commit
         </CommitBtnBlock>
-        <DeleteBtnBlock onClick={() => DeleteCommit(username)}>
+        <DeleteBtnBlock
+          onClick={(e) => {
+            e.preventDefault();
+            DeleteCommit(username);
+          }}
+        >
           Delete Log
         </DeleteBtnBlock>
 
-        <MakePRBlock onClick={() => MakePR(username)}>Make PR</MakePRBlock>
+        <MakePRBlock
+          onClick={(e) => {
+            e.preventDefault();
+            MakePR(username);
+          }}
+        >
+          Make PR
+        </MakePRBlock>
 
-        <DeleteAllBlock onClick={() => DeleteAll(username)}>
+        <DeleteAllBlock
+          onClick={(e) => {
+            e.preventDefault();
+            DeleteAll(username);
+          }}
+        >
           Delete ALL
         </DeleteAllBlock>
       </div>

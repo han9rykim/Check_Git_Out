@@ -47,11 +47,12 @@ router.post("/", async (req, res) => {
       console.log(err);
     }
     console.log("PR 성공적");
-
+    res.end();
     con.end();
   } catch (err) {
     console.log(err);
   }
+  res.end();
 });
 
 module.exports = router;

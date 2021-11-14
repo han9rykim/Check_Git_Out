@@ -1,3 +1,4 @@
+require("date-utils");
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
@@ -20,7 +21,6 @@ async function makeCommittoRepo(token, inputLine, student) {
         path: "README.md",
       }
     );
-
     const beforeSHA = response.data.sha;
     const before = Buffer.from(response.data.content, "base64").toString(
       "utf8"
@@ -30,6 +30,7 @@ async function makeCommittoRepo(token, inputLine, student) {
     );
     console.log(`response ${response}`);
     try {
+      var newDate = new Date();
       await user.request("PUT /repos/{owner}/{repo}/contents/{path}", {
         owner: "CNUCSE-RESUME",
         repo: `${student}Resume`,
@@ -38,13 +39,19 @@ async function makeCommittoRepo(token, inputLine, student) {
         message: "changed your repo",
         sha: beforeSHA,
       });
+      var time = newDate.toFormat("YYYY-MM-DD HH24:MI:SS");
       console.log("made commit");
+      console.log(time);
     } catch (err) {
       console.log(err);
     }
   } catch (err) {
     console.log(err);
   }
+  return 200;
+}
+async function print() {
+  console.log("SIBAL");
 }
 
 router.post("/", async (req, res) => {
@@ -75,12 +82,14 @@ router.post("/", async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          for (var i = 0; i < rows.length; i++) {
+          console.log(rows.length);
+          for (let i = 0; i < rows.length; i++) {
             if (rows[i].username == null) {
               continue;
             }
             prof.push(rows[i].username);
             content.push(rows[i].content);
+            // await print();
             await makeCommittoRepo(
               rows[i].token,
               rows[i].content,
@@ -89,12 +98,14 @@ router.post("/", async (req, res) => {
           }
         }
       });
+      res.end();
     } catch (err) {
       console.log(err);
     }
   } catch (err) {
     console.log(err);
   }
+  res.end();
 });
 
 module.exports = router;
