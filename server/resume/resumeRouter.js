@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
   }
   con.end();
   console.log("studentinfo connect end");
-  // res.end();
+  res.end();
 });
 
 module.exports = router;

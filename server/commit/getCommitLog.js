@@ -61,8 +61,8 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-  // res.end();
   con.end();
+  res.end();
 });
 
 module.exports = router;

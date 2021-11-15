@@ -24,8 +24,8 @@ router.post("/", async (req, res) => {
       console.log("Deleted ALL");
     }
   });
-
   con.end();
+  res.end();
 });
 
 module.exports = router;
