@@ -4,95 +4,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import marked from "marked";
 import MypageProf from "../resume/MypageProf";
-
-const ReadmeBackGroundBlock = styled.div`
-  position: absolute;
-  overflow: scroll;
-  width: 870px;
-  height: 830px;
-  left: 100px;
-  top: 80px;
-  background: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 10px;
-  margin: 0 auto;
-  padding-right: 30px;
-  padding-left: 30px;
-  margin-bottom: 32px;
-`;
-
-const CommitLogBlock = styled.div`
-  position: absolute;
-  width: 665px;
-  height: 830px;
-  left: 1085px;
-  top: 80px;
-  margin: 0 auto;
-  background: rgba(197, 197, 197, 0.65);
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const CommitLogTitle = styled.div`
-  position: absolute;
-  width: 606px;
-  height: 55px;
-  left: 1115px;
-  top: 105px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 40px;
-  line-height: 60px;
-  color: #ffffff;
-`;
-
-const CommitLog = styled.div`
-  position: absolute;
-  ont-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  overflow: scroll;
-  font-size: 20px;
-  line-height: 35px;
-  color: #ffffff;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 606px;
-  height: 680px;
-  left: 1115px;
-  top: 180px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const CheckPRBtn = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1300px;
-  top: 870px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-const MergeBtn = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1420px;
-  top: 870px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
+import "./Mypage.css";
 
 function Mypage() {
   async function getProfileObj() {
@@ -157,18 +69,30 @@ function Mypage() {
   });
 
   return (
-    <div>
-      <ReadmeBackGroundBlock>
-        <MypageProf props={username} />
-      </ReadmeBackGroundBlock>
-      <CommitLogBlock />
-      <CommitLogTitle>Commit Log</CommitLogTitle>
-      <CommitLog
-        id="preview"
-        dangerouslySetInnerHTML={{ __html: marked(con, { render: renderer }) }}
-      />
-      <CheckPRBtn onClick={() => GetClick(username)}>PR확인하기</CheckPRBtn>
-      <MergeBtn onClick={() => GetMergeClick(username)}>Merge하기</MergeBtn>
+    <div className="outer">
+      <div className="ReadmeBackGroundBlock">
+        <div className="ReadmeUserNameBlock">{username}</div>
+        <div className="ResumeBackGroundBlock">
+          <MypageProf props={username} />
+        </div>
+      </div>
+
+      <div className="CommitLogBlock">
+        <div className="CommitLogTitle">Commit Log</div>
+        <div
+          className="CommitLog"
+          id="preview"
+          dangerouslySetInnerHTML={{
+            __html: marked(con, { render: renderer }),
+          }}
+        />
+        <button className="CheckPRBtn" onClick={() => GetClick(username)}>
+          PR확인하기
+        </button>
+        <button className="MergeBtn" onClick={() => GetMergeClick(username)}>
+          Merge하기
+        </button>
+      </div>
     </div>
   );
 }

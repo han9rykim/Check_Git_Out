@@ -4,29 +4,7 @@ import styled from "styled-components";
 import { Button, Form, FormControl, Nav } from "react-bootstrap";
 import { Link, Route } from "react-router-dom";
 import marked from "marked";
-
-const ContentBlock = styled.div`
-  position: relative;
-  font-size: 1.2em;
-  text-align: left;
-  color: white;
-  width: 870px;
-  top: 60px;
-  background: rgba(22, 65, 148, 0.8);
-  height: 470px;
-  border-radius: 30px;
-  margin: 0 auto;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 30px;
-`;
-
-const Block = styled.div`
-  position: relative;
-  top: 40px;
-  border-radius: 10px;
-`;
+import "./Home.css";
 
 function Home() {
   const renderer = new marked.Renderer();
@@ -51,17 +29,18 @@ Git의 Commit과 Pull Request, Merge를 활용한 방식으로 학생의 이력�
   });
   return (
     <div>
-      <Block>
+      <div className="Block">
         <img src="img/GithubLogo.png" />
         <br />
         <img src="img/logo_CNU.png" />
-        <ContentBlock
+        <div
+          className="ContentBlock"
           id="preview"
           dangerouslySetInnerHTML={{
             __html: marked(con, { render: renderer }),
           }}
         />
-      </Block>
+      </div>
     </div>
   );
 }

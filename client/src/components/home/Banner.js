@@ -1,107 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-const LetterTemplate = styled.div`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 30px;
-  color: #ffffff;
-`;
-
-const BannerBlock = styled.div`
-  position: relative;
-  width: 100%;
-  height: 50px;
-  top: 0px;
-
-  background: #c4c4c4;
-`;
-
-const CnuLogoBlock = styled.div`
-  position: relative;
-  width: 180px;
-  height: 34px;
-  float: left;
-  margin-left: 10px;
-  top: 8px;
-  background: url("https://user-images.githubusercontent.com/39149858/130719419-5fa0003e-b3e1-4743-bc08-34e3fe735028.png");
-  background-size: 100%;
-`;
-//border-color: #c4c4c4;
-const MypageBtn = styled.button`
-  position: relative;
-  width: 111px;
-  height: 34px;
-  margin-left: 10px;
-  float: left;
-  top: 8px;
-
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const ResumeBtn = styled.button`
-  position: absolute;
-  width: 111px;
-  height: 34px;
-  left: 366px;
-  top: 8px;
-
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const SearchBlock = styled.input`
-  position: relative;
-  width: 321px;
-  height: 34px;
-  top: 9px;
-  margin: 0 auto;
-  margin-right: 10px;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const SearchBtn = styled.button`
-  position: relative;
-  width: 111px;
-  height: 34px;
-  top: 9px;
-  margin: 0 auto;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const LoginBtn = styled.button`
-  position: relative;
-  width: 111px;
-  height: 34px;
-  top: 9px;
-  margin: 0 auto;
-  float: right;
-  margin-right: 10px;
-
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const IconBlock = styled.div`
-  position: relative;
-  width: 35px;
-  height: 35px;
-  margin: 0 auto;
-  margin-right: 10px;
-  float: right;
-  top: 8px;
-`;
+import "./Banner.css";
 
 function Banner({ history }) {
   const [searchUser, setSearchUser] = useState("");
@@ -146,24 +46,25 @@ function Banner({ history }) {
 
   return (
     <div>
-      <BannerBlock>
-        <LetterTemplate></LetterTemplate>
+      <div className="BannerBlock">
+        <div className="LetterTemplate"></div>
         <Link to="/">
-          <CnuLogoBlock />
+          <div className="CnuLogoBlock" />
         </Link>
         <Link to="/mypage">
-          <MypageBtn>
-            <LetterTemplate>MyPage</LetterTemplate>
-          </MypageBtn>
+          <button className="MypageBtn">
+            <div className="LetterTemplate">My Page</div>
+          </button>
         </Link>
 
         {/* <Link to="/resume">
-          <ResumeBtn>
-            <LetterTemplate>Resume</LetterTemplate>
-          </ResumeBtn>
+          <button className="ResumeBtn">
+            <div className="LetterTemplate">Resume</div>
+          </button>
         </Link> */}
 
-        <SearchBlock
+        <input
+          className="SearchBlock"
           type="text"
           id="header-search"
           placeholder="Search student name here"
@@ -171,43 +72,43 @@ function Banner({ history }) {
           value={searchUser}
           onChange={handleChange}
           onKeyPress={onKeyPress}
-        ></SearchBlock>
-        <SearchBtn onClick={() => handleSearch()}>
-          <LetterTemplate>Search</LetterTemplate>
-        </SearchBtn>
+        ></input>
+        <button className="SearchBtn" onClick={() => handleSearch()}>
+          <div className="LetterTemplate">Search</div>
+        </button>
         {/* <a href={searchUser}></a> */}
         <accountdiv>
           {isLogin ? (
             <logouttag onClick={() => handleLogOut()}>
               <Link to="/">
-                <LoginBtn>
-                  <LetterTemplate>Logout</LetterTemplate>
-                </LoginBtn>
+                <button className="LoginBtn">
+                  <div className="LetterTemplate">Logout</div>
+                </button>
               </Link>
-              <IconBlock>
+              <div className="IconBlock">
                 <img src={imgURL} alt="Profile" width="30px" height="30px" />
-              </IconBlock>
+              </div>
             </logouttag>
           ) : (
             <logintag>
               <a href={url}>
-                <LoginBtn>
-                  <LetterTemplate>Login</LetterTemplate>
-                </LoginBtn>
+                <button className="LoginBtn">
+                  <div className="LetterTemplate">Login</div>
+                </button>
               </a>
-              <IconBlock>
+              <div className="IconBlock">
                 <img
                   src="https://user-images.githubusercontent.com/39149858/130719648-7ac10111-c896-4be4-a4fe-393a824c6c21.png"
                   alt="Profile"
                   width="30px"
                   height="30px"
                 />
-              </IconBlock>
+              </div>
               {/* <a href={url}></a> */}
             </logintag>
           )}
         </accountdiv>
-      </BannerBlock>
+      </div>
     </div>
   );
 }

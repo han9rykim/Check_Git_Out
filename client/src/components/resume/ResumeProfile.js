@@ -39,7 +39,7 @@ async function getProfileObj(props) {
     .catch((errorMessage, statusCode) => {
       // This is never hit for a server 404 error
       haveRepo = false;
-      returnContent = "# This Student Doesn't Have Resume";
+      returnContent = "<center> This Student Doesn't Have Resume </center>";
       // console.log(errorMessage, statusCode);
     });
   if (haveRepo) {
