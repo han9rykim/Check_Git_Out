@@ -1,0 +1,21 @@
+.ContentBlock {
+  position: relative;
+  font-size: 1.2em;
+  text-align: left;
+  color: white;
+  width: 70%;
+  background: rgba(22, 65, 148, 0.8);
+  height: 30%;
+  border-radius: 30px;
+  margin: 2% auto;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+}
+
+.Block {
+  position: relative;
+  top: 40px;
+  border-radius: 10px;
+}

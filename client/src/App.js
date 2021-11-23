@@ -9,18 +9,11 @@ const GlobalStyle = createGlobalStyle`
   body{
     background: #e9ecef;
     text-align: center;
+    height: 100%;
   }	
 `;
 function App() {
-  // const location =
   useLocation();
-  // console.log(location.state.tmpval);
-  // var flag;
-  // if (location.state) {
-  //   flag = location.state.tmpval;
-  // } else {
-  //   flag = false;
-  // }
   return (
     <div>
       <GlobalStyle />

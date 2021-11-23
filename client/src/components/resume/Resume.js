@@ -2,220 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import ResumeProfile from "./ResumeProfile";
-
-const ReadmeBackGroundBlock = styled.div`
-  position: absolute;
-  overflow: scroll;
-  width: 90%;
-  height: 90%;
-  margin: auto;
-  top: 60px;
-  background: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 10px;
-`;
-
-const ResumeBackGroundBlock = styled.div`
-  position: absolute;
-  width: 665px;
-  height: 830px;
-  left: 100px;
-  top: 80px;
-  background: rgba(197, 197, 197, 0.65);
-  border: 1px solid #000000;
-  border-radius: 10px;
-  margin: 0 auto;
-  padding-right: 30px;
-  padding-left: 30px;
-  margin-bottom: 32px;
-`;
-const ReadmeUserNameBlock = styled.div`
-  position: absolute;
-  width: 80%;
-  top: 10px;
-  height: 40px;
-  left: 60px;
-  background: #ffffff;
-  border-radius: 10px;
-  font-size: 30px;
-`;
-
-const CommitBlock = styled.div`
-  position: absolute;
-  width: 665px;
-  height: 830px;
-  left: 1085px;
-  top: 80px;
-  background: rgba(197, 197, 197, 0.65);
-  border-radius: 10px;
-`;
-
-/**
- * const GetBlock = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1210px;
-  top: 430px;
-
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  color: white;
-`;
-
-const CommitBtnBlock = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1320px;
-  top: 430px;
-
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  color: white;
-`;
-const DeleteBtnBlock = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1430px;
-  top: 430px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  color: white;
-`;
-
-const DeleteAllBlock = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1375px;
-  top: 375px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-
-  background: #ffffff;
-`;
-
-const MakePRBlock = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1540px;
-  top: 430px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  color: white;
-`;
-const CommitLogBlock = styled.div`
-  position: absolute;
-  width: 665px;
-  height: 390px;
-  left: 1085px;
-  top: 80px;
-  margin: 0 auto;
-  background: rgba(197, 197, 197, 0.65);
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
-const CommitLogTitle = styled.div`
-  position: absolute;
-  width: 606px;
-  height: 55px;
-  left: 1115px;
-  top: 105px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 40px;
-  line-height: 60px;
-  color: #ffffff;
-`;
-
-const CommitLog = styled.div`
-  position: absolute;
-  width: 606px;
-  height: 240px;
-  left: 1115px;
-  top: 180px;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 35px;
-  color: #ffffff;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
-
- */
-const DateBlock = styled.input`
-  position: absolute;
-  width: 605px;
-  height: 55px;
-  left: 1115px;
-  top: 170px;
-  background: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  display: block;
-  color: #8d8d8d;
-  background: #ffffff;
-`;
-const TitleBlock = styled.input`
-  position: absolute;
-  width: 605px;
-  height: 50px;
-  left: 1115px;
-  top: 100px;
-  background: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  display: block;
-  color: #8d8d8d;
-  background: #ffffff;
-`;
-
-const DescriptionBlock = styled.input`
-  position: absolute;
-  width: 605px;
-  height: 580px;
-  left: 1115px;
-  top: 250px;
-  background: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  display: block;
-  color: #8d8d8d;
-  background: #ffffff;
-`;
-
-const CheckBlock = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 30px;
-  left: 1360px;
-  top: 850px;
-  color: white;
-  background: rgba(22, 65, 148, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
+import "./Resume.css";
 
 function Resume({ history, match }) {
   const token = localStorage.getItem("access_token");
@@ -326,68 +113,57 @@ function Resume({ history, match }) {
     });
   }
 
-  // const onKeyPress = (e) => {
-  //   if (e.key === "Enter") {
-  //     onClick();
-  //   }
-  // };
-  // const promise = getProfileObj(username);
-  // promise.then((result) => {
-  //   setcommitContent(result.data);
-  // });
-
   return (
-    <div>
-      <ResumeBackGroundBlock>
-        <ReadmeUserNameBlock>{username}</ReadmeUserNameBlock>
-        <ReadmeBackGroundBlock>
+    <div className="outer">
+      <div className="ReadmeBackGroundBlock">
+        <div className="ReadmeUserNameBlock">{username}</div>
+        <div className="ResumeBackGroundBlock">
           <ResumeProfile props={username} />
-        </ReadmeBackGroundBlock>
-      </ResumeBackGroundBlock>
-
+        </div>
+      </div>
       {/* <CommitLogBlock /> */}
       {/* <CommitLogTitle>Commit Log</CommitLogTitle> */}
       {/* <CommitLog>{commitContent}</CommitLog> */}
-
-      <CommitBlock />
-      <DateBlock
-        type="text"
-        name="date"
-        placeholder="date"
-        value={date}
-        onChange={onChange}
-        required={true}
-      />
-
-      <TitleBlock
-        type="text"
-        name="title"
-        placeholder="title"
-        value={title}
-        onChange={onChange}
-        required={true}
-      />
-
-      <DescriptionBlock
-        type="text"
-        name="description"
-        placeholder="description"
-        value={description}
-        onChange={onChange}
-        required={true}
-        // onKeyPress={onKeyPress}
-      />
-
-      <div>
-        <CheckBlock
-          onClick={(e) => {
-            e.preventDefault();
-            addCommitLog();
-          }}
-        >
-          저장
-        </CheckBlock>
-        {/*
+      <div className="CommitBlock">
+        <input
+          className="DateBlock"
+          type="text"
+          name="date"
+          placeholder="date"
+          value={date}
+          onChange={onChange}
+          required={true}
+        />
+        <input
+          className="TitleBlock"
+          type="text"
+          name="title"
+          placeholder="title"
+          value={title}
+          onChange={onChange}
+          required={true}
+        />
+        <input
+          className="DescriptionBlock"
+          type="text"
+          name="description"
+          placeholder="description"
+          value={description}
+          onChange={onChange}
+          required={true}
+          // onKeyPress={onKeyPress}
+        />
+        <div>
+          <button
+            className="CheckBlock"
+            onClick={(e) => {
+              e.preventDefault();
+              addCommitLog();
+            }}
+          >
+            저장
+          </button>
+          {/*
         <GetBlock
           // onClick={(e) => {
           //   e.preventDefault();
@@ -433,6 +209,7 @@ function Resume({ history, match }) {
         >
           Delete ALL
         </DeleteAllBlock>*/}
+        </div>
       </div>
     </div>
   );
