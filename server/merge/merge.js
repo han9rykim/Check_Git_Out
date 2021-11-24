@@ -4,6 +4,7 @@ var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
 const { Octokit } = require("@octokit/core");
+const getConnection = require("../db/database");
 
 async function MakeMerge(token, stuname) {
   var number = "";
@@ -46,37 +47,30 @@ async function MakeMerge(token, stuname) {
 
 router.post("/", async (req, res) => {
   const sendReq = req.body;
-  console.log("checkPR connected");
+  console.log("merge connected");
   console.log(sendReq);
 
   try {
-    const con = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      port: 3306,
-      password: "",
-      database: "gResume",
-    });
-
     var token = "";
     var sql = "SELECT token FROM user WHERE username=?";
     var params = [sendReq.stuname];
     try {
-      await con.query(sql, params, async function (err, rows, fields) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(sendReq.stuname);
-          //   console.log(rows[0].token);
-          console.log("토큰 찾기");
-          await MakeMerge(rows[0].token, sendReq.stuname);
-        }
+      await getConnection((con) => {
+        con.query(sql, params, async function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(sendReq.stuname);
+            //   console.log(rows[0].token);
+            console.log("토큰 찾기");
+            await MakeMerge(rows[0].token, sendReq.stuname);
+          }
+        });
+        con.release();
       });
     } catch (err) {
       console.log(err);
     }
-
-    con.end();
   } catch (err) {
     console.log(err);
   }

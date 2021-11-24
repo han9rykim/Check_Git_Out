@@ -1,8 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var express = require("express");
-var router = express.Router();
-var mysql = require("mysql");
+const getConnection = require("../db/database");
 const { Octokit } = require("@octokit/core");
 
 async function checkPRList(token, stuname) {
@@ -52,38 +50,31 @@ router.post("/", async (req, res) => {
   console.log(sendReq);
 
   try {
-    const con = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      port: 3306,
-      password: "",
-      database: "gResume",
-    });
-
     var token = "";
     var sql = "SELECT token FROM user WHERE username=?";
     var params = [sendReq.stuname];
     try {
-      await con.query(sql, params, async function (err, rows, fields) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(sendReq.stuname);
-          //   console.log(rows[0].token);
-          console.log("토큰 찾기");
-          const changedContent = await checkPRList(
-            rows[0].token,
-            sendReq.stuname
-          );
+      await getConnection((con) => {
+        con.query(sql, params, async function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(sendReq.stuname);
+            //   console.log(rows[0].token);
+            console.log("토큰 찾기");
+            const changedContent = await checkPRList(
+              rows[0].token,
+              sendReq.stuname
+            );
 
-          res.send({ changedContent });
-        }
+            res.send({ changedContent });
+          }
+        });
+        con.release();
       });
     } catch (err) {
       console.log(err);
     }
-
-    con.end();
   } catch (err) {
     console.log(err);
   }

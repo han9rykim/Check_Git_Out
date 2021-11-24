@@ -24,31 +24,25 @@ router.post("/", async (req, res) => {
   const sendReq = req.body;
   console.log(sendReq);
   try {
-    const con = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      port: 3306,
-      password: "",
-      database: "gResume",
-    });
-
     var token = "";
     var sql = "SELECT token FROM user WHERE username=?";
     var params = [sendReq.prof];
     try {
-      await con.query(sql, params, async function (err, rows, fields) {
-        if (err) {
-          console.log(err);
-        } else {
-          makePRfromAtoB(rows[0].token, sendReq.stuname);
-        }
+      await getConnection((con) => {
+        con.query(sql, params, async function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+          } else {
+            makePRfromAtoB(rows[0].token, sendReq.stuname);
+          }
+        });
+        con.release();
       });
     } catch (err) {
       console.log(err);
     }
     console.log("PR 성공적");
     res.end();
-    con.end();
   } catch (err) {
     console.log(err);
   }

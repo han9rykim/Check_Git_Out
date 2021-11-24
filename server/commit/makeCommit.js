@@ -4,7 +4,7 @@ var router = express.Router();
 const axios = require("axios");
 var express = require("express");
 var router = express.Router();
-var mysql = require("mysql");
+const getConnection = require("../db/database");
 const { Octokit } = require("@octokit/core");
 
 async function makeCommittoRepo(token, inputLine, student) {
@@ -63,22 +63,10 @@ router.post("/", async (req, res) => {
   var content = [];
 
   try {
-    const con = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      port: 3306,
-      password: "",
-      database: "gResume",
-    });
-    await con.connect(function (err) {
-      if (err) throw err;
-      console.log("Make Commit router Connected");
-    });
-
-    try {
-      var sql = "SELECT * FROM commitlog WHERE stu_username=?";
-      var params = [response.headers.stuname];
-      await con.query(sql, params, async function (err, rows, fields) {
+    var sql = "SELECT * FROM commitlog WHERE stu_username=?";
+    var params = [response.headers.stuname];
+    await getConnection((con) => {
+      con.query(sql, params, async function (err, rows, fields) {
         if (err) {
           console.log(err);
         } else {
@@ -98,14 +86,14 @@ router.post("/", async (req, res) => {
           }
         }
       });
+      con.release();
       res.end();
-    } catch (err) {
-      console.log(err);
-    }
+    });
+
+    res.end();
   } catch (err) {
     console.log(err);
   }
-  res.end();
 });
 
 module.exports = router;
