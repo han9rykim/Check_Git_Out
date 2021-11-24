@@ -19,28 +19,30 @@ function Mypage() {
     return response;
   }
 
-  async function checkPR(props) {
-    const stuname = props;
-    var response;
-    try {
-      response = await axios.post(`http://168.188.129.200:8080/checkpr`, {
-        stuname,
-      });
-    } catch (err) {}
-    return response;
-  }
+  // async function checkPR(props) {
+  //   console.log("불림");
+  //   const stuname = props;
+  //   var response;
+  //   try {
+  //     response = await axios.post(`http://168.188.129.200:8080/checkpr`, {
+  //       stuname,
+  //     });
+  //   } catch (err) {}
+  //   return response;
+  // }
 
-  const GetClick = (props) => {
-    const promise = checkPR(props);
-    console.log(promise);
-    promise.then((result) => {
-      if (result.data.changedContent == null) {
-        setcommitContent("Pull Request가 없습니다.");
-      } else {
-        setcommitContent(result.data.changedContent);
-      }
-    });
-  };
+  // const GetClick = (props) => {
+  //   const promise = checkPR(props);
+  //   console.log("siba");
+  //   console.log(promise);
+  //   promise.then((result) => {
+  //     if (result.data.changedContent == null) {
+  //       setcommitContent("Pull Request가 없습니다.");
+  //     } else {
+  //       setcommitContent(result.data.changedContent);
+  //     }
+  //   });
+  // };
 
   async function GetMergeClick(props) {
     const stuname = props;
@@ -69,17 +71,24 @@ function Mypage() {
   });
 
   async function GetMyNewCommit() {
-    var response = await axios.post(
-      `http://168.188.129.200:8080/getcommitlog`,
-      {
-        username, //학생이름.
+    try {
+      var response = await axios.post(
+        `http://168.188.129.200:8080/getcommitlog`,
+        {
+          username, //학생이름.
+        }
+      );
+      console.log(response.data);
+      let commitBoard = document.getElementById("previewCommitLog");
+      let dataArr = response.data.data;
+      for (let i = 0; i < dataArr.length; i++) {
+        let tmp = document.createElement("p");
+        tmp.innerHTML = JSON.stringify(dataArr[i]);
+        commitBoard.appendChild(tmp);
       }
-    );
-    console.log(response);
-    return response;
-    // .then((response) => {
-    //   setcommitContent(response.data);
-    // });
+    } catch {}
+
+    return response.data;
   }
 
   return (
@@ -95,7 +104,7 @@ function Mypage() {
         <div className="CommitLogTitle">Commit Log</div>
         <div
           className="CommitLog"
-          id="preview"
+          id="previewCommitLog"
           dangerouslySetInnerHTML={{
             __html: marked(con, { render: renderer }),
           }}
