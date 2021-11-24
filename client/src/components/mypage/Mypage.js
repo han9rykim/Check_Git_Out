@@ -68,6 +68,20 @@ function Mypage() {
     xhtml: true,
   });
 
+  async function GetMyNewCommit() {
+    var response = await axios.post(
+      `http://168.188.129.200:8080/getcommitlog`,
+      {
+        username, //학생이름.
+      }
+    );
+    console.log(response);
+    return response;
+    // .then((response) => {
+    //   setcommitContent(response.data);
+    // });
+  }
+
   return (
     <div className="outer">
       <div className="ReadmeBackGroundBlock">
@@ -86,7 +100,7 @@ function Mypage() {
             __html: marked(con, { render: renderer }),
           }}
         />
-        <button className="CheckPRBtn" onClick={() => GetClick(username)}>
+        <button className="CheckPRBtn" onClick={() => GetMyNewCommit()}>
           PR확인하기
         </button>
         <button className="MergeBtn" onClick={() => GetMergeClick(username)}>
