@@ -5,7 +5,7 @@ var router = express.Router();
 var mysql = require("mysql");
 const { Octokit } = require("@octokit/core");
 const getConnection = require("../db/database");
-
+//GitHub Octokit 라이브러리 참고. https://octokit.github.io/rest.js/v18/
 async function MakeMerge(token, stuname) {
   var number = "";
   var title = "";
@@ -60,12 +60,14 @@ router.post("/", async (req, res) => {
           if (err) {
             console.log(err);
           } else {
-            console.log(sendReq.stuname);
+            console.log("Merge함수 실행");
+            // console.log(sendReq.stuname);
             //   console.log(rows[0].token);
-            console.log("토큰 찾기");
+            // console.log("토큰 찾기");
             await MakeMerge(rows[0].token, sendReq.stuname);
           }
         });
+        res.end();
         con.release();
       });
     } catch (err) {
@@ -74,7 +76,7 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-  res.end();
+  // res.end();
 });
 
 module.exports = router;

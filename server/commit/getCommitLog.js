@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
           console.log(err);
         } else {
           if (rows.length == 0) {
-            console.log("시바");
+            // console.log("시바");
             try {
             } catch (err) {
               res.send("내용이 아직 없습니다.");
@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
                 writer: `${rows[i].username}`,
                 student: `${rows[i].stu_username}`,
                 content: `${rows[i].content}`,
+                // row: `${rows[i]}`,
               });
               sendContent += `writer: ${rows[i].username},
                 student: ${rows[i].stu_username},

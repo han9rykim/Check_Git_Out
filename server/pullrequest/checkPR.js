@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const getConnection = require("../db/database");
 const { Octokit } = require("@octokit/core");
-
+//GitHub Octokit 라이브러리 참고. https://octokit.github.io/rest.js/v18/
 async function checkPRList(token, stuname) {
   var number = "";
   const octokit = new Octokit({
@@ -70,6 +70,7 @@ router.post("/", async (req, res) => {
             res.send({ changedContent });
           }
         });
+        res.end();
         con.release();
       });
     } catch (err) {

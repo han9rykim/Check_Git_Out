@@ -20,6 +20,7 @@ function decode_utf8(s) {
   return decodeURIComponent(escape(s));
 }
 
+// GitHub Oktokit 라이브러리 참고.
 async function getProfileObj(props) {
   const token = localStorage.getItem("access_token");
   const octokit = new Octokit({

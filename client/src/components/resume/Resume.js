@@ -163,52 +163,6 @@ function Resume({ history, match }) {
           >
             저장
           </button>
-          {/*
-        <GetBlock
-          // onClick={(e) => {
-          //   e.preventDefault();
-          //   GetClick();
-          // }}
-          onClick={GetClick}
-        >
-          새로고침
-        </GetBlock>
-
-        <CommitBtnBlock
-          onClick={(e) => {
-            e.preventDefault();
-            MakeCommit(username);
-          }}
-          // onClick={MakeCommit(username)}
-        >
-          Commit
-        </CommitBtnBlock>
-        <DeleteBtnBlock
-          onClick={(e) => {
-            e.preventDefault();
-            DeleteCommit(username);
-          }}
-        >
-          Delete Log
-        </DeleteBtnBlock>
-
-        <MakePRBlock
-          onClick={(e) => {
-            e.preventDefault();
-            MakePR(username);
-          }}
-        >
-          Make PR
-        </MakePRBlock>
-
-        <DeleteAllBlock
-          onClick={(e) => {
-            e.preventDefault();
-            DeleteAll(username);
-          }}
-        >
-          Delete ALL
-        </DeleteAllBlock>*/}
         </div>
       </div>
     </div>

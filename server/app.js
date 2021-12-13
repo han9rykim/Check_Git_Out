@@ -8,9 +8,7 @@ const cors = require("cors");
 const mysql = require("mysql");
 
 const authRouter = require("./auth/auth");
-// const mysqlRouter = require("./db/mysql");
 const prRouter = require("./pullrequest/prRouter");
-// const resumeRouter = require("./resume/resumeRouter");
 const commitRouter = require("./commit/commitLogRouter");
 const getCommitRouter = require("./commit/getCommitLog");
 const makecommitRouter = require("./commit/makeCommit");

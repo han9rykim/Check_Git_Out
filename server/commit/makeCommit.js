@@ -7,6 +7,7 @@ var router = express.Router();
 const getConnection = require("../db/database");
 const { Octokit } = require("@octokit/core");
 
+//GitHub Octokit 라이브러리 참고. https://octokit.github.io/rest.js/v18/
 async function makeCommittoRepo(token, inputLine, student) {
   console.log("Make Commit 함수 실행");
   const user = new Octokit({
@@ -50,45 +51,37 @@ async function makeCommittoRepo(token, inputLine, student) {
   }
   return 200;
 }
-async function print() {
-  console.log("SIBAL");
-}
 
 router.post("/", async (req, res) => {
   const response = req.body;
-  console.log(`making commit is in ${response}`);
+  // console.log(`making commit is in ${response}`);
   // var sql = "SELECT * FROM commitlog WHERE stu_username=?";
   // var params = [response.headers.stuname];
+  console.log("MakeCommit.js");
   var prof = [];
   var content = [];
 
   try {
-    var sql = "SELECT * FROM commitlog WHERE stu_username=?";
-    var params = [response.headers.stuname];
+    // var sql = "SELECT * FROM commitlog WHERE stu_username=?";
+    var sql = "SELECT * FROM user WHERE username=?";
+    var params = [response.headers.admin];
     await getConnection((con) => {
       con.query(sql, params, async function (err, rows, fields) {
         if (err) {
           console.log(err);
         } else {
           console.log(rows.length);
-          for (let i = 0; i < rows.length; i++) {
-            if (rows[i].username == null) {
-              continue;
-            }
-            prof.push(rows[i].username);
-            content.push(rows[i].content);
-            // await print();
-            await makeCommittoRepo(
-              rows[i].token,
-              rows[i].content,
-              response.headers.stuname
-            );
-          }
+          await makeCommittoRepo(
+            rows[0].token,
+            response.headers.content,
+            response.headers.stuname
+          );
         }
       });
       con.release();
       res.end();
     });
+    // await makeCommittoRepo();
 
     res.end();
   } catch (err) {

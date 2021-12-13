@@ -3,49 +3,13 @@
   display: flex;
   height: 800px;
   /* display: block; */
-}
-
-.ReadmeBackGroundBlock {
-  justify-content: flex-start;
-  position: relative;
-  margin: auto;
-  width: 50%;
-  height: 90%;
-  margin: 2% auto;
-  background: rgba(197, 197, 197, 0.65);
-  border-radius: 10px;
-  z-index: 0;
-}
-
-.ReadmeUserNameBlock {
-  position: relative;
-  width: 80%;
-  height: 5%;
-  margin: 2% auto;
-  padding-right: 30px;
-  padding-left: 30px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-size: 25px;
-}
-
-.ResumeBackGroundBlock {
-  position: relative;
-  width: 80%;
-  height: 85%;
-  overflow-y: scroll;
-  display: block;
-  background: white;
-  /* border: 1px solid #000000; */
-  border-radius: 10px;
-  margin: 0 auto;
+  /* background-color: black; */
 }
 
 .CommitLogBlock {
   position: relative;
   justify-content: end;
-  overflow-y: scroll;
+
   width: 40%;
   height: 90%;
   margin: 2% auto;
@@ -53,6 +17,17 @@
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+}
+
+.ReadmeBackGroundBlock {
+  justify-content: flex-start;
+  position: relative;
+  width: 50%;
+  height: 90%;
+  margin: 2% auto;
+  background: rgba(197, 197, 197, 0.65);
+  border-radius: 10px;
+  z-index: 0;
 }
 
 .CommitLogTitle {
@@ -78,8 +53,12 @@
   background: white;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-size: 25px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
 }
+
 .CommitLog {
   position: relative;
   width: 80%;
@@ -89,20 +68,28 @@
   border-radius: 10px;
 }
 
-.CheckPRBtn {
+.GetMyNewCommitBtn {
   position: relative;
   width: 100px;
   height: 30px;
+  margin: 2% auto;
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  color: #ffffff;
 }
 
-.MergeBtn {
+.AddBtn {
   position: relative;
   width: 100px;
   height: 30px;
   background: rgba(22, 65, 148, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  color: #ffffff;
+}
+
+#previewCommitLog {
+  height: 80%;
+  overflow-y: scroll;
 }

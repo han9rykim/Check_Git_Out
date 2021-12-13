@@ -6,11 +6,6 @@ var express = require("express");
 var router = express.Router();
 const getConnection = require("../db/database");
 
-/* post auth. */
-// router.get("/", function (req, res, next) {
-// 	res.render("index", { title: "AUTH page" });
-// });
-
 router.post("/", async (req, res) => {
   try {
     const { sendReq } = req.body;
@@ -18,8 +13,6 @@ router.post("/", async (req, res) => {
 
     const id = `${sendReq.title}${sendReq.student}`;
     const content = `<br/>  [${sendReq.date}] [${sendReq.title}] - ${sendReq.description}`;
-    // console.log(content);
-    // console.log(id);
     var sql =
       "INSERT INTO commitlog(username, id, content, stu_username, token) VALUES(?,?,?,?,?) ON DUPLICATE KEY UPDATE content = (?)";
     var param = [
