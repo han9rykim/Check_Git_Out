@@ -12,8 +12,6 @@
 
 [Check-Git-Out ver 2.1 데모영상](https://www.youtube.com/watch?v=_vczlV2JfGU&ab_channel=HyunsooKim)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/_vczlV2JfGU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## 사용 기술 스택
 
 - NGINX
