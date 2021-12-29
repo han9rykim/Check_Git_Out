@@ -8,6 +8,12 @@
 이러한 문제상황을 해결하기 위해 Check-Git-Out은 추천자의 전자서명이 포함된 이력을 제공받아 신뢰성을 보장받을 수 있다.
 이 프로젝트는 신뢰성이 보장된 이력서를 제공하는 것을 목표로 한다.
 
+## 데모 영상
+
+[Check-Git-Out ver 2.1 데모영상](https://www.youtube.com/watch?v=_vczlV2JfGU&ab_channel=HyunsooKim)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_vczlV2JfGU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## 사용 기술 스택
 
 - NGINX
