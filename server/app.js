@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 
 const port = 8080;
 const cors = require("cors");
-const mysql = require("mysql");
 
 const authRouter = require("./auth/auth");
 const prRouter = require("./pullrequest/prRouter");

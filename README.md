@@ -63,7 +63,7 @@
   nodemon app.js //백엔드 서버를 8080 포트로 연다.
   ```
 
-- Server 구조
+- Server 폴더 구조
 
   - app.js
     - express.js를 이용하여 라우터가 설정되어있다. 서버는 8080 포트로 연다.
@@ -76,9 +76,13 @@
     - getCommitLog.js : 특정 구직자에게 저장되어있는 모든 이력을 가져온다.
     - makeCommit.js : fork해온 레포지토리로 이력을 commit한다.
   - db
+    - database.js : mysql connection을 통해 생성한 후 Pool안에 등록하여
+      connection을 조절해준다. getConnection함수를 이용하여 연결된 것을 반환한다.
   - merge
+    - merge.js : Pull Request에 대하여 merge를 수행해준다.
   - pullrequest
-  - resuem
+    - checkPR.js : 생성된 Pull Request가 있는지 확인을 수행한다.
+    - prRouter.js : Pull Request를 생성하는 라우터이다.
 
 ### Backend - Database 설정
 
@@ -122,3 +126,20 @@
   npm run build //react static build를 한다.
                 //nginx를 이용하여 80번 포트로 React static build파일을 serving한다.
   ```
+
+- Client 폴더 구조
+  - build
+    리액트 static build 파일이 저장되는 위치로 build 폴더위치를 nginx에 넘겨주어야함.
+  - src
+    - components : 각종 컴포넌트들이 있다.
+      - about : About 페이지 컴포넌트.
+      - error : 404페이지이다.
+      - home : banner와 Home(첫 화면)의 컴포넌트.
+      - login : 로그인을 위한 컴포넌트인 Login.js (GitHub API 로그인 구현.)
+      - mypage : 구직자가 자신의 변동된 이력을 확인하는 컴포넌트이다.
+      - oAuthPrac : Callback.js는 GitHub으로 oAuth로그인시 GitHub으로부터 받은 code를 auth링크로 전송하는 컴포넌트이다.
+      - resume : 이력을 작성하고 검색하는 컴포넌트들.
+      - setting : 환경설정을 위한 컴포넌트.
+      - RouteHome.js : SPA 방식의 리액트를 위한 라우팅을 하는 컴포넌트.
+    - App.js : 리액트 특성 상 가장 기본적인 App 컴포넌트로 다른 컴포넌트들을 받아온다.
+    - .env : 환경 변수들을 설정해둔다. dotenv를 통해 GitHub oAuth app 설정의 client id와 auth url을 작성하면 된다
