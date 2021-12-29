@@ -20,6 +20,14 @@
 - MySQL
 - GitHub API(Octokit library)
 
+## 서비스 구조
+
+<img src ="./Asset/architecture.png">
+
+## 시퀀스 다이어그램
+
+<img src ="./Asset/seq.png">
+
 ## 용어 정리
 
 - 구직자 : 학생, 개발자 등등 이력서의 주인.
